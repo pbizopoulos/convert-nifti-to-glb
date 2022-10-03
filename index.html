@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<title>Augmented reality</title>
+		<link href="data:," rel="icon">
+		<link href="https://pbizopoulos.github.io/style.css" rel="stylesheet">
+		<script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+		<py-env>
+                - nibabel
+                - scikit-image
+                - trimesh
+		</py-env>
+	</head>
+	<body>
+		<div id="div-header">
+			<div id="div-navigation">
+				<a href="https://pbizopoulos.github.io">Home page</a> / <b>Augmented reality</b>
+			</div>
+			<div id="div-source-code-link">
+				<a href="https://github.com/pbizopoulos/augmented-reality" id="sourceCodeUrl">Source code</a>
+			</div>
+		</div>
+		<input type="file" id="inputFile" accept=".nii">
+		<py-script src="./index.py"></py-script>
+	</body>
+</html>
