@@ -34,6 +34,5 @@ async def process_file(event):
         window.URL.revokeObjectURL(url)
 
 
-file_event = create_proxy(process_file)
-e = document.getElementById('inputFile')
-e.addEventListener('change', file_event, False)
+loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
+loadNiftiFileInputFile.addEventListener('change', create_proxy(process_file), False)

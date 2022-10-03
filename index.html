@@ -25,7 +25,10 @@
 				<a href="https://github.com/pbizopoulos/nifti-to-mesh-converter" id="sourceCodeUrl">Source code</a>
 			</div>
 		</div>
-		<input type="file" id="inputFile" accept=".nii">
+		<div>
+			<label for="loadNiftiFileInputFile">Load Nifti file:</label>
+			<input accept=".nii" id="loadNiftiFileInputFile" name="loadNiftiFileInputFile" type="file">
+		</div>
 		<py-script src="./index.py"></py-script>
 	</body>
 </html>
