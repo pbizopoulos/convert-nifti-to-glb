@@ -1,10 +1,10 @@
-# Augmented reality
+# Nifti to mesh converter
 Private-oriented (data do not leave the device)
 No installation needed (only a modern browser is needed)
-https://pbizopoulos.github.io/augmented-reality
+https://pbizopoulos.github.io/nifti-to-mesh-converter
 
 # End-user instructions
-Visit https://pbizopoulos.github.io/augmented-reality/ .
+Visit https://pbizopoulos.github.io/nifti-to-mesh-converter/ .
 Load your nifti data.
 
 # Development basic commands
