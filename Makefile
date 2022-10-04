@@ -3,8 +3,6 @@
 .PHONY: clean help
 
 artifacts_dir=artifacts
-container_engine=docker # For podman first execute `printf 'unqualified-search-registries=["docker.io"]\n' > /etc/containers/registries.conf.d/docker.conf`
-work_dir=/work
 
 $(artifacts_dir)/code-run: $(artifacts_dir)/cert.pem .gitignore package-lock.json ## Run local server.
 	ARTIFACTSDIR=$(artifacts_dir) npx http-server -S -C $(artifacts_dir)/cert.pem -K $(artifacts_dir)/key.pem
