@@ -5,7 +5,7 @@
 artifacts_dir=artifacts
 
 $(artifacts_dir)/code-run: $(artifacts_dir)/cert.pem .gitignore package-lock.json ## Run local server.
-	ARTIFACTSDIR=$(artifacts_dir) npx http-server -S -C $(artifacts_dir)/cert.pem -K $(artifacts_dir)/key.pem
+	ARTIFACTS_DIR=$(artifacts_dir) npx http-server -S -C $(artifacts_dir)/cert.pem -K $(artifacts_dir)/key.pem
 	touch $(artifacts_dir)/code-run
 
 .gitignore:
