@@ -6,14 +6,17 @@
 		<title>Nifti to mesh converter</title>
 		<link href="data:," rel="icon">
 		<link href="https://pbizopoulos.github.io/style.css" rel="stylesheet">
-		<script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-		<py-env>
-                - nibabel
-                - scikit-image
-                - trimesh
-		</py-env>
+		<link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
+		<script defer src="https://pyscript.net/latest/pyscript.js"></script>
 	</head>
 	<body>
+		<py-config type="toml">
+			packages = [
+			"nibabel",
+			"scikit-image",
+			"trimesh",
+			]
+		</py-config>
 		<div id="div-header">
 			<div id="div-navigation">
 				<a href="https://cordis.europa.eu/project/id/952179">

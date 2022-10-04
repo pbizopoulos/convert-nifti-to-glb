@@ -1,5 +1,4 @@
 from js import Blob, document, Uint8Array, window
-from pyodide import create_proxy, to_js
 from skimage.measure import marching_cubes
 import asyncio
 import nibabel as nib
@@ -20,7 +19,7 @@ async def process_file(event):
         trimesh.smoothing.filter_laplacian(tm, iterations=1)
         tm.visual.face_colors = [31,119,180,127]
         output = trimesh.exchange.export.export_mesh(tm, 'output.glb')
-        content = to_js(output)
+        content = pyodide.ffi.to_js(output)
         a = document.createElement('a')
         document.body.appendChild(a)
         a.style = 'display: none'
@@ -33,4 +32,4 @@ async def process_file(event):
 
 
 loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
-loadNiftiFileInputFile.addEventListener('change', create_proxy(process_file), False)
+loadNiftiFileInputFile.addEventListener('change', pyodide.ffi.create_proxy(process_file), False)
