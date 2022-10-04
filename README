@@ -9,6 +9,3 @@ Load your nifti data.
 
 # Development basic commands
 make				# Run local server.
-make clean 			# Remove dependent directories.
-make help			# Show all commands.
-make artifacts/masks.nii	# Download masks.nii.
