@@ -1,16 +1,20 @@
 from js import Blob, document, Uint8Array, window
+from nibabel import Nifti1Image
 from skimage.measure import marching_cubes
 import asyncio
-import nibabel as nib
 import pyodide
 import trimesh
 
 
 async def process_file(event):
+    loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
+    loadNiftiFileInputFile.disabled = True
+    processing_div = document.getElementById('processingDiv')
+    processing_div.textContent = 'Processing...'
     fileList = event.target.files.to_py()
     for f in fileList:
         data = Uint8Array.new(await f.arrayBuffer())
-        nifti_object = nib.Nifti1Image.from_bytes(bytearray(data))
+        nifti_object = Nifti1Image.from_bytes(bytearray(data))
         (verts, faces, *_) = marching_cubes(nifti_object.get_fdata(), 0.5, spacing=(1.0, 1.0, 10.0), step_size=1)
         tm = trimesh.Trimesh(vertices=verts, faces=faces)
         tm.apply_translation(-tm.center_mass)
@@ -29,6 +33,8 @@ async def process_file(event):
         a.download = 'output.glb'
         a.click()
         window.URL.revokeObjectURL(url)
+        loadNiftiFileInputFile.disabled = False
+        processing_div.textContent = 'Processing done.'
 
 
 loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
