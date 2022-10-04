@@ -5,7 +5,7 @@ https://pbizopoulos.github.io/nifti-to-mesh-converter
 
 # End-user instructions
 Visit https://pbizopoulos.github.io/nifti-to-mesh-converter/ .
-Load your nifti data.
+Load a nifti file.
 
 # Development basic commands
 make				# Run local server.
