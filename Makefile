@@ -2,50 +2,56 @@
 
 .PHONY: all clean help
 
-artifacts_dir=artifacts
-code_file_name=index.html
 container_engine=docker # For podman first execute `printf 'unqualified-search-registries=["docker.io"]\n' > /etc/containers/registries.conf.d/docker.conf`
 debug_args=$$(test -t 0 && printf '%s' '--interactive --tty')
 user_arg=$$(test $(container_engine) = 'docker' && printf '%s' "--user $$(id -u):$$(id -g)")
 work_dir=/work
 
-all: $(artifacts_dir)/cert.pem .gitignore ## Run server.
+all: .dockerignore .gitignore bin/cert.pem ## Run server.
 	$(container_engine) container run \
 		$(debug_args) \
 		$(user_arg) \
 		--detach-keys 'ctrl-^,ctrl-^' \
-		--env HOME=$(work_dir)/$(artifacts_dir) \
-		--env NODE_PATH=$(work_dir)/$(artifacts_dir) \
+		--env HOME=$(work_dir)/bin \
+		--env NODE_PATH=$(work_dir)/bin \
 		--publish 8080:8080 \
 		--rm \
 		--volume $$(pwd):$(work_dir)/ \
 		--workdir $(work_dir)/ \
-		node /bin/bash -c 'npx --yes http-server -S -C $(artifacts_dir)/cert.pem -K $(artifacts_dir)/key.pem'
+		node /bin/bash -c 'npx --yes http-server --cert bin/cert.pem --key bin/key.pem --ssl'
 
-$(artifacts_dir)/code-analyze: $(artifacts_dir) $(code_file_name) .gitignore ## Analyze code.
+check: bin/check ## Check code.
+
+clean: ## Remove binaries.
+	rm -rf bin/
+
+help: ## Show help.
+	@sed -n '/sed/d; /##/p' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.* ## "}; {printf "make %-10s# %s\n", $$1, $$2}'
+
+.dockerignore:
+	printf '*\n' > .dockerignore
+
+.gitignore:
+	printf 'bin/\n' > .gitignore
+
+bin:
+	mkdir bin
+
+bin/cert.pem: bin
+	openssl req -newkey rsa:2048 -subj "/C=../ST=../L=.../O=.../OU=.../CN=.../emailAddress=..." -new -nodes -x509 -days 3650 -keyout bin/key.pem -out bin/cert.pem
+
+bin/check: .dockerignore .gitignore bin index.html
 	$(container_engine) container run \
 		$(debug_args) \
 		$(user_arg) \
 		--detach-keys 'ctrl-^,ctrl-^' \
-		--env HOME=$(work_dir)/$(artifacts_dir) \
-		--env NODE_PATH=$(work_dir)/$(artifacts_dir) \
+		--env HOME=$(work_dir)/bin \
+		--env NODE_PATH=$(work_dir)/bin \
 		--rm \
 		--volume $$(pwd):$(work_dir)/ \
 		--workdir $(work_dir)/ \
-		node /bin/bash -c 'npx --yes html-validate $(code_file_name)'
-	touch $(artifacts_dir)/code-analyze
+		node /bin/bash -c 'npx --yes html-validate index.html'
+	touch bin/check
 
-clean: ## Remove dependent directories.
-	rm -rf $(artifacts_dir)/
-
-help: ## Show all commands.
-	@sed -n '/sed/d; s/\$$(artifacts_dir)/$(artifacts_dir)/g; /##/p' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.* ## "}; {printf "%-30s# %s\n", $$1, $$2}'
-
-$(artifacts_dir):
-	mkdir $(artifacts_dir)
-
-$(artifacts_dir)/cert.pem: $(artifacts_dir)
-	openssl req -newkey rsa:2048 -subj "/C=../ST=../L=.../O=.../OU=.../CN=.../emailAddress=..." -new -nodes -x509 -days 3650 -keyout $(artifacts_dir)/key.pem -out $(artifacts_dir)/cert.pem
-
-.gitignore:
-	printf '$(artifacts_dir)/\n' > .gitignore
+index.html:
+	printf '\n' > index.html
