@@ -7,5 +7,10 @@ No installation needed (only a modern browser is needed)
 Visit https://pbizopoulos.github.io/nifti-to-mesh-converter/ .
 Load a nifti file.
 
+# Requirements
+POSIX mandatory utilities
+Make
+Docker
+
 # Development basic commands
 make help	# Show help for html.
