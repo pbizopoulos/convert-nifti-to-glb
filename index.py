@@ -15,12 +15,12 @@ async def process_file(event):
     for f in fileList:
         data = Uint8Array.new(await f.arrayBuffer())
         nifti_object = Nifti1Image.from_bytes(bytearray(data))
-        (verts, faces, *_) = marching_cubes(nifti_object.get_fdata(), 0.5, spacing=(1.0, 1.0, 10.0), step_size=1)
+        (verts, faces, *_) = marching_cubes(nifti_object.get_fdata(), 0.5, spacing=nifti_object.header.get_zooms(), step_size=1)
         tm = trimesh.Trimesh(vertices=verts, faces=faces)
         tm.apply_translation(-tm.center_mass)
         trimesh.repair.fix_inversion(tm)
         trimesh.repair.fill_holes(tm)
-        trimesh.smoothing.filter_laplacian(tm, iterations=1)
+        trimesh.smoothing.filter_laplacian(tm, iterations=10)
         tm.visual.face_colors = [31,119,180,127]
         output = trimesh.exchange.export.export_mesh(tm, 'output.glb')
         content = pyodide.ffi.to_js(output)
