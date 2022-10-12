@@ -18,6 +18,7 @@ async def process_file(event):
         (verts, faces, *_) = marching_cubes(nifti_object.get_fdata(), 0.5, spacing=nifti_object.header.get_zooms(), step_size=1)
         tm = trimesh.Trimesh(vertices=verts, faces=faces)
         tm.apply_translation(-tm.center_mass)
+        tm.apply_scale(10**(-3))
         trimesh.repair.fix_inversion(tm)
         trimesh.repair.fill_holes(tm)
         trimesh.smoothing.filter_laplacian(tm, iterations=10)
