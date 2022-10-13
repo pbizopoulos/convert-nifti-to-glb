@@ -3,14 +3,16 @@ from nibabel import Nifti1Image
 from skimage.measure import marching_cubes
 import asyncio
 import pyodide
+import time
 import trimesh
 
 
 async def process_file(event):
+    start_time = time.time()
     loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
     loadNiftiFileInputFile.disabled = True
     processing_div = document.getElementById('processingDiv')
-    processing_div.textContent = 'Processing...'
+    processing_div.textContent = 'Converting NifTi to GLB. It will take a minute...'
     fileList = event.target.files.to_py()
     for f in fileList:
         data = Uint8Array.new(await f.arrayBuffer())
@@ -22,7 +24,9 @@ async def process_file(event):
         trimesh.repair.fix_inversion(tm)
         trimesh.repair.fill_holes(tm)
         trimesh.smoothing.filter_laplacian(tm, iterations=10)
-        tm.visual.face_colors = [31,119,180,127]
+        tm.visual = trimesh.visual.TextureVisuals(material=trimesh.visual.material.PBRMaterial())
+        tm.visual.material.alphaMode = 'BLEND'
+        tm.visual.material.baseColorFactor = [31,119,180,127]
         output = trimesh.exchange.export.export_mesh(tm, 'output.glb')
         content = pyodide.ffi.to_js(output)
         a = document.createElement('a')
@@ -35,7 +39,7 @@ async def process_file(event):
         a.click()
         window.URL.revokeObjectURL(url)
         loadNiftiFileInputFile.disabled = False
-        processing_div.textContent = 'Processing done.'
+        processing_div.textContent = f'Convertion done in {(time.time() - start_time):.1f} seconds.'
 
 
 loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
