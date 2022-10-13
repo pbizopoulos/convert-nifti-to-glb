@@ -12,7 +12,7 @@ async def process_file(event):
     loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
     loadNiftiFileInputFile.disabled = True
     processing_div = document.getElementById('processingDiv')
-    processing_div.textContent = 'Converting NifTi to GLB. It will take a minute...'
+    processing_div.textContent = 'Converting NifTi to GLB. It might take a few minutes...'
     fileList = event.target.files.to_py()
     for f in fileList:
         data = Uint8Array.new(await f.arrayBuffer())
@@ -25,8 +25,8 @@ async def process_file(event):
         trimesh.smoothing.filter_laplacian(tm, iterations=10)
         tm.visual = trimesh.visual.TextureVisuals(material=trimesh.visual.material.PBRMaterial())
         tm.visual.material.alphaMode = 'BLEND'
-        tm.visual.material.baseColorFactor = [31,119,180,127]
-        output = trimesh.exchange.export.export_mesh(tm, 'output.glb')
+        tm.visual.material.baseColorFactor = [31, 119, 180, 127]
+        output = trimesh.exchange.export.export_mesh(tm, 'glb')
         content = pyodide.ffi.to_js(output)
         a = document.createElement('a')
         document.body.appendChild(a)
