@@ -3,3 +3,5 @@ packages = [
 	'scikit-image',
 	'trimesh',
 ]
+
+paths = ['./main.py']
