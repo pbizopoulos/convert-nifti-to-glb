@@ -1,6 +1,7 @@
 from nibabel import Nifti1Image
 from os.path import isfile, join
 from skimage.measure import marching_cubes
+from urllib import request
 import numpy as np
 import trimesh
 
@@ -8,10 +9,7 @@ import trimesh
 def generate_mesh(data):
     if isinstance(data, str):
         if not isfile(data):
-            import requests
-            response = requests.get('https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/void/masks.nii')
-            with open(data, 'wb') as file:
-                file.write(response.content)
+            request.urlretrieve('https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/void/masks.nii', data)
         nifti_object = Nifti1Image.from_filename(data)
         output_file_name = join('bin', 'output.glb')
     else:
