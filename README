@@ -13,5 +13,5 @@ Make
 Docker
 
 # Development basic commands
-make -f Makefile.html help	# Show help for html.
-make help			# Show help for python.
+make help		# Show help for browser.
+make -C python/ help	# Show help for python.
