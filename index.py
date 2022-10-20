@@ -1,5 +1,5 @@
 from js import Blob, document, Uint8Array, window
-from python.main import generate_mesh
+from main import generate_mesh
 import pyodide
 import time
 
