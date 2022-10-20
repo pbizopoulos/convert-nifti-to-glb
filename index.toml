@@ -4,4 +4,4 @@ packages = [
 	'trimesh',
 ]
 
-paths = ['./main.py']
+paths = ['./python/main.py']
