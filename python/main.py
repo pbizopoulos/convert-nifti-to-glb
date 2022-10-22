@@ -41,6 +41,9 @@ def generate_mesh(data):
         trimesh.repair.fix_inversion(tm2)
         trimesh.repair.fill_holes(tm2)
         tm = trimesh.util.concatenate([tm, tm2])
+        tm.visual.material = tm.visual.material.to_pbr()
+        tm.visual.material.alphaMode = 'BLEND'
+        tm.visual.material.baseColorFactor[-1] = 127
     return trimesh.exchange.export.export_mesh(tm, output_file_name)
 
 
