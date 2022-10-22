@@ -9,7 +9,7 @@ import trimesh
 def generate_mesh(data):
     if isinstance(data, str):
         if not isfile(data):
-            request.urlretrieve(f'https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/void/{data.split("/")[1]}', data)
+            request.urlretrieve(f'https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/dist/{data.split("/")[1]}', data)
         nifti_object = Nifti1Image.from_filename(data)
         output_file_name = join('bin', 'output.glb')
     else:
