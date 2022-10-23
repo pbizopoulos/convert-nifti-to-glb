@@ -21,7 +21,7 @@ async def process_file(event):
     fileList = loadNiftiFileInputFile.files.to_py()
     for f in fileList:
         data = Uint8Array.new(await f.arrayBuffer())
-        output = generate_mesh(data, step_size, iterations)
+        output = generate_mesh(data, iterations, step_size)
         content = pyodide.ffi.to_js(output)
         a = document.createElement('a')
         document.body.appendChild(a)

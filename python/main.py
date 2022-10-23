@@ -6,10 +6,10 @@ import numpy as np
 import trimesh
 
 
-def generate_mesh(data, step_size, iterations):
+def generate_mesh(data, iterations, step_size):
     if isinstance(data, str):
         if not isfile(data):
-            request.urlretrieve(f'https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/dist/{data.split("/")[1]}', data)
+            request.urlretrieve(f"https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/dist/{data.split('/')[1]}", data)
         nifti_object = Nifti1Image.from_filename(data)
         output_file_name = join('bin', 'output.glb')
     else:
@@ -50,8 +50,8 @@ def generate_mesh(data, step_size, iterations):
 
 
 def main():
-    generate_mesh(join('bin', 'masks.nii'), 2, 1)
-    generate_mesh(join('bin', 'masks-multiclass.nii'), 2, 1)
+    generate_mesh(join('bin', 'masks.nii'), 1, 2)
+    generate_mesh(join('bin', 'masks-multiclass.nii'), 1, 2)
 
 
 if __name__ == '__main__':
