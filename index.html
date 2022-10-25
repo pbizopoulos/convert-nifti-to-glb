@@ -20,23 +20,23 @@
 				<b>NifTi to GLB conversion tool</b>
 			</div>
 			<div id="div-source-code-link">
-				<a href="https://github.com/pbizopoulos/nifti-to-glb-conversion-tool" id="sourceCodeUrl">Source code</a>
+				<a href="https://github.com/pbizopoulos/nifti-to-glb-conversion-tool">Source code</a>
 			</div>
 		</div>
 		<div>
-			<label for="loadNiftiFileInputFile">Load Nifti file:</label>
-			<input accept=".nii" id="loadNiftiFileInputFile" name="loadNiftiFileInputFile" type="file">
+			<label for="load-nifti-file-input-file">Load Nifti file:</label>
+			<input accept=".nii" id="load-nifti-file-input-file" name="load-nifti-file-input-file" type="file">
 		</div>
 		<div>
-			<label for="stepSizeInputRange">Step size: <span id="stepSizeSpan">2</span></label>
-			<input id="stepSizeInputRange" max="10" min="1" name="stepSizeInputRange" step="1" type="range" value="2" oninput="stepSizeSpan.textContent = this.value">
+			<label for="step-size-input-range">Step size: <span id="stepSizeSpan">2</span></label>
+			<input id="step-size-input-range" max="10" min="1" name="step-size-input-range" step="1" type="range" value="2" oninput="stepSizeSpan.textContent = this.value">
 		</div>
 		<div>
-			<label for="iterationsInputRange">Iterations: <span id="iterationsSpan">1</span></label>
-			<input id="iterationsInputRange" max="100" min="1" name="iterationsInputRange" step="1" type="range" value="1" oninput="iterationsSpan.textContent = this.value">
+			<label for="iterations-input-range">Iterations: <span id="iterationsSpan">1</span></label>
+			<input id="iterations-input-range" max="100" min="1" name="iterations-input-range" step="1" type="range" value="1" oninput="iterationsSpan.textContent = this.value">
 		</div>
-		<button id="convertButton" type="submit">Convert</button>
-		<div id="processingDiv"></div>
+		<button id="convert-button" type="submit">Convert</button>
+		<div id="processing-div"></div>
 		<py-script src="./index.py"></py-script>
 	</body>
 </html>

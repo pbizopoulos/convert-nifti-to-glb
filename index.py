@@ -6,15 +6,15 @@ import time
 
 async def process_file(event):
     start_time = time.time()
-    convertButton = document.getElementById('convertButton')
+    convertButton = document.getElementById('convert-button')
     convertButton.disabled = True
-    iterationsInputRange = document.getElementById('iterationsInputRange')
+    iterationsInputRange = document.getElementById('iterations-input-range')
     iterationsInputRange.disabled = True
-    loadNiftiFileInputFile = document.getElementById('loadNiftiFileInputFile')
+    loadNiftiFileInputFile = document.getElementById('load-nifti-file-input-file')
     loadNiftiFileInputFile.disabled = True
-    stepSizeInputRange = document.getElementById('stepSizeInputRange')
+    stepSizeInputRange = document.getElementById('step-size-input-range')
     stepSizeInputRange.disabled = True
-    processing_div = document.getElementById('processingDiv')
+    processing_div = document.getElementById('processing-div')
     processing_div.textContent = 'Converting NifTi to GLB. It might take a few minutes...'
     step_size = int(stepSizeInputRange.value)
     iterations = int(iterationsInputRange.value)
@@ -38,5 +38,5 @@ async def process_file(event):
         iterationsInputRange.disabled = False
         processing_div.textContent = f'Conversion done in {(time.time() - start_time):.1f} seconds.'
 
-convertButton = document.getElementById('convertButton')
+convertButton = document.getElementById('convert-button')
 convertButton.addEventListener('click', pyodide.ffi.create_proxy(process_file), False)
