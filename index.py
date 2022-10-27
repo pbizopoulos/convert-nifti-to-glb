@@ -1,5 +1,6 @@
 from js import Blob, document, Uint8Array, window
 from main import generate_mesh
+from pyodide.ffi.wrappers import add_event_listener
 import pyodide
 import time
 
@@ -38,5 +39,9 @@ async def process_file(event):
         iterationsInputRange.disabled = False
         processing_div.textContent = f'Conversion done in {(time.time() - start_time):.1f} seconds.'
 
-convertButton = document.getElementById('convert-button')
-convertButton.addEventListener('click', pyodide.ffi.create_proxy(process_file), False)
+def main():
+    add_event_listener(document.getElementById('convert-button'), 'click', process_file)
+
+
+if __name__ == '__main__':
+    main()
