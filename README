@@ -1,11 +1,5 @@
 # NifTi to GLB conversion tool
 https://pbizopoulos.github.io/nifti-to-glb-conversion-tool
-Private-oriented (data do not leave the device)
-No installation needed (only a modern browser is needed)
-
-# End-user instructions
-Visit https://pbizopoulos.github.io/nifti-to-glb-conversion-tool/ .
-Load a NifTi file.
 
 # Requirements
 POSIX mandatory utilities
