@@ -1,0 +1,7 @@
+packages = [
+	'nibabel',
+	'scikit-image',
+	'trimesh',
+]
+
+paths = ['./python/main.py']

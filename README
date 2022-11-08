@@ -1,0 +1,11 @@
+# NifTi to GLB conversion tool
+https://pbizopoulos.github.io/nifti-to-glb-conversion-tool
+
+# Requirements
+POSIX mandatory utilities
+Make
+Docker
+
+# Development basic commands
+make help		# Show help for browser.
+make -C python/ help	# Show help for python.

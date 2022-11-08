@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<title>NifTi to GLB conversion tool</title>
+		<link href="data:," rel="icon">
+		<link href="https://pbizopoulos.github.io/style.css" rel="stylesheet">
+		<link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
+		<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+		<py-config src="./index.toml"></py-config>
+	</head>
+	<body>
+		<div id="div-header">
+			<div id="div-navigation">
+				<a href="https://cordis.europa.eu/project/id/952179">
+					<img alt="INCISIVE Cordis webpage" src="https://raw.githubusercontent.com/pbizopoulos/incisive/main/incisive-header-logo.svg" height="20">
+				</a>
+				<a href="https://pbizopoulos.github.io/incisive">Home page</a> /
+				<b>NifTi to GLB conversion tool</b>
+			</div>
+			<div id="div-source-code-link">
+				<a href="https://github.com/pbizopoulos/nifti-to-glb-conversion-tool">Source code</a>
+			</div>
+		</div>
+		<div>
+			<label for="load-nifti-file-input-file">Load NifTi file:</label>
+			<input accept=".nii" id="load-nifti-file-input-file" name="load-nifti-file-input-file" type="file">
+		</div>
+		<div>
+			<label for="marching-cubes-step-size-input-range">Marching cubes step size: <span id="marchingCubesStepSizeSpan">2</span></label>
+			<input id="marching-cubes-step-size-input-range" max="10" min="1" name="marching-cubes-step-size-input-range" step="1" type="range" value="2" oninput="marchingCubesStepSizeSpan.textContent = this.value">
+		</div>
+		<div>
+			<label for="laplacian-smoothing-iterations-input-range">Laplacian smoothing iterations: <span id="laplacianSmoothingIterationsSpan">1</span></label>
+			<input id="laplacian-smoothing-iterations-input-range" max="100" min="1" name="laplacian-smoothing-iterations-input-range" step="1" type="range" value="1" oninput="laplacianSmoothingIterationsSpan.textContent = this.value">
+		</div>
+		<button id="convert-button" type="submit">Convert</button>
+		<div id="processing-div"></div>
+		<py-script src="./index.py"></py-script>
+	</body>
+</html>

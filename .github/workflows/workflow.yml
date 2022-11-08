@@ -1,0 +1,16 @@
+on: [push, pull_request]
+
+jobs:
+  make:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - name: Check code and build binaries for python.
+        run: |
+          make -C python/ check
+          make -C python/
+      - name: Check code and build binaries for browser.
+        run: |
+          make check
+          make
