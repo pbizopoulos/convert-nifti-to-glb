@@ -5,24 +5,21 @@
 		<meta content="width=device-width, initial-scale=1" name="viewport">
 		<title>NifTi to GLB conversion tool</title>
 		<link href="data:," rel="icon">
-		<link href="https://pbizopoulos.github.io/style.css" rel="stylesheet">
 		<link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
 		<script defer src="https://pyscript.net/latest/pyscript.js"></script>
 		<py-config src="./index.toml"></py-config>
 	</head>
 	<body>
-		<div id="div-header">
-			<div id="div-navigation">
-				<a href="https://cordis.europa.eu/project/id/952179">
-					<img alt="INCISIVE Cordis webpage" src="https://raw.githubusercontent.com/pbizopoulos/incisive/main/incisive-header-logo.svg" height="20">
-				</a>
-				<a href="https://pbizopoulos.github.io/incisive">Home page</a> /
-				<b>NifTi to GLB conversion tool</b>
-			</div>
-			<div id="div-source-code-link">
-				<a href="https://github.com/pbizopoulos/nifti-to-glb-conversion-tool">Source code</a>
-			</div>
-		</div>
+		<nav>
+			<a href="https://cordis.europa.eu/project/id/952179">
+				<img alt="INCISIVE Cordis webpage" src="https://raw.githubusercontent.com/pbizopoulos/incisive/main/incisive-header-logo.svg" height="20">
+			</a> |
+			<a href="https://pbizopoulos.github.io/incisive">Home page</a> |
+			<a href="https://github.com/pbizopoulos/nifti-to-glb-conversion-tool">Source code</a>
+		</nav>
+		<header>
+			<h2>NifTi to GLB conversion tool</h2>
+		</header>
 		<div>
 			<label for="load-nifti-file-input-file">Load NifTi file:</label>
 			<input accept=".nii" id="load-nifti-file-input-file" name="load-nifti-file-input-file" type="file">
