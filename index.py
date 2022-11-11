@@ -16,6 +16,9 @@ async def process_file(event):
     loadNiftiFileInputFile.disabled = True
     marchingCubesStepSizeInputRange = document.getElementById('marching-cubes-step-size-input-range')
     marchingCubesStepSizeInputRange.disabled = True
+    conversion_progress_div = document.getElementById('conversion-progress-div')
+    conversion_progress_div.style.display = ''
+    conversion_progress = document.getElementById('conversion-progress')
     processing_div = document.getElementById('processing-div')
     processing_div.textContent = 'Converting NifTi to GLB. It might take a few minutes...'
     marching_cubes_step_size = int(marchingCubesStepSizeInputRange.value)
@@ -48,6 +51,7 @@ async def process_file(event):
         marchingCubesStepSizeInputRange.disabled = False
         laplacianSmoothingIterationsInputRange.disabled = False
         processing_div.textContent = f'Conversion done in {(time.time() - start_time):.1f} seconds.'
+        conversion_progress_div.style.display = '';
 
 def main():
     add_event_listener(document.getElementById('convert-button'), 'click', process_file)

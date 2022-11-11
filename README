@@ -8,4 +8,4 @@ Docker
 
 # Development basic commands
 make help		# Show help for browser.
-make -C python/ help	# Show help for python.
+cd python/ && make help	# Show help for python.

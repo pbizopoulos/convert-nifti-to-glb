@@ -28,6 +28,10 @@
 			<input id="laplacian-smoothing-iterations-input-range" max="100" min="1" name="laplacian-smoothing-iterations-input-range" step="1" type="range" value="1" oninput="laplacianSmoothingIterationsSpan.textContent = this.value">
 		</div>
 		<button id="convert-button" type="submit">Convert</button>
+		<div id="conversion-progress-div" style="display:none;">
+			<label for="conversion-progress">Conversion progress:</label>
+			<progress id="conversion-progress" name="conversion-progress"></progress>
+		</div>
 		<div id="processing-div"></div>
 		<py-script src="./index.py"></py-script>
 	</body>
