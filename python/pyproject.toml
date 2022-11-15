@@ -1,6 +1,6 @@
 [project]
-name = "None"
-version = "0"
+name = "UNKNOWN"
+version = "0.0.0"
 dependencies = [
 	"nibabel==4.0.2",
 	"scikit-image==0.19.3",
