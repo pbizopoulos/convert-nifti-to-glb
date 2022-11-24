@@ -6,8 +6,8 @@ POSIX mandatory utilities
 Make
 Docker
 
-# Build
+# Check code and build
 git clone https://github.com/pbizopoulos/nifti-to-glb-conversion-tool
 cd nifti-to-glb-conversion-tool/
-cd python/ && make DEBUG=0 && cd ..
-make DEBUG=0
+cd python/ && make check all && cd ..
+make check all
