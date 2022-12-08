@@ -8,28 +8,28 @@ import time
 
 async def process_file(event):
     start_time = time.time()
-    convertButton = document.getElementById('convert-button')
-    convertButton.disabled = True
-    laplacianSmoothingIterationsInputRange = document.getElementById('laplacian-smoothing-iterations-input-range')
-    laplacianSmoothingIterationsInputRange.disabled = True
-    loadNiftiFileInputFile = document.getElementById('load-nifti-file-input-file')
-    loadNiftiFileInputFile.disabled = True
-    marchingCubesStepSizeInputRange = document.getElementById('marching-cubes-step-size-input-range')
-    marchingCubesStepSizeInputRange.disabled = True
+    convert_button = document.getElementById('convert-button')
+    convert_button.disabled = True
+    laplacian_smoothing_iterations_input_range = document.getElementById('laplacian-smoothing-iterations-input-range')
+    laplacian_smoothing_iterations_input_range.disabled = True
+    load_nifti_file_input_file = document.getElementById('load-nifti-file-input-file')
+    load_nifti_file_input_file.disabled = True
+    marching_cubes_step_size_input_range = document.getElementById('marching-cubes-step-size-input-range')
+    marching_cubes_step_size_input_range.disabled = True
     processing_div = document.getElementById('processing-div')
     processing_div.textContent = 'Converting NifTi to GLB. It might take a few minutes...'
-    marching_cubes_step_size = int(marchingCubesStepSizeInputRange.value)
-    laplacian_smoothing_iterations = int(laplacianSmoothingIterationsInputRange.value)
-    fileList = loadNiftiFileInputFile.files.to_py()
-    for file in fileList:
+    marching_cubes_step_size = int(marching_cubes_step_size_input_range.value)
+    laplacian_smoothing_iterations = int(laplacian_smoothing_iterations_input_range.value)
+    file_list = load_nifti_file_input_file.files.to_py()
+    for file in file_list:
         data = Uint8Array.new(await file.arrayBuffer())
         try:
             output = generate_mesh(data, laplacian_smoothing_iterations, marching_cubes_step_size)
         except Exception as exception:
-            convertButton.disabled = False
-            loadNiftiFileInputFile.disabled = False
-            marchingCubesStepSizeInputRange.disabled = False
-            laplacianSmoothingIterationsInputRange.disabled = False
+            convert_button.disabled = False
+            load_nifti_file_input_file.disabled = False
+            marching_cubes_step_size_input_range.disabled = False
+            laplacian_smoothing_iterations_input_range.disabled = False
             processing_div.textContent = 'Out of memory. Try reducing the iterations and/or increasing the step size'
             sys.exit()
         content = pyodide.ffi.to_js(output)
@@ -43,11 +43,12 @@ async def process_file(event):
         a.download = f'{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb'
         a.click()
         window.URL.revokeObjectURL(url)
-        convertButton.disabled = False
-        loadNiftiFileInputFile.disabled = False
-        marchingCubesStepSizeInputRange.disabled = False
-        laplacianSmoothingIterationsInputRange.disabled = False
+        convert_button.disabled = False
+        load_nifti_file_input_file.disabled = False
+        marching_cubes_step_size_input_range.disabled = False
+        laplacian_smoothing_iterations_input_range.disabled = False
         processing_div.textContent = f'Conversion done in {(time.time() - start_time):.1f} seconds.'
+
 
 def main():
     add_event_listener(document.getElementById('convert-button'), 'click', process_file)
