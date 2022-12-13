@@ -4,5 +4,5 @@ version = "0.0.0"
 dependencies = [
 	"nibabel==4.0.2",
 	"scikit-image==0.19.3",
-	"trimesh==3.16.4",
+	"trimesh==3.17.1",
 ]
