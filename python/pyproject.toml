@@ -6,3 +6,11 @@ dependencies = [
 	"scikit-image==0.19.3",
 	"trimesh==3.17.1",
 ]
+
+[project.optional-dependencies]
+dev = ["ruff==0.0.191"]
+
+[tool.ruff]
+select = ["A", "C", "E", "ERA", "F", "I", "ICN", "N", "PD", "RET", "SIM", "T20", "TID", "UP", "W"]
+ignore = ["C901", "E501", "PD013"]
+fix = true

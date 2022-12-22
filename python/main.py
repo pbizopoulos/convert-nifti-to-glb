@@ -1,9 +1,10 @@
-from nibabel import Nifti1Image
 from os.path import isfile, join
-from skimage.measure import marching_cubes
 from urllib import request
+
 import numpy as np
 import trimesh
+from nibabel import Nifti1Image
+from skimage.measure import marching_cubes
 
 
 def generate_mesh(data, laplacian_smoothing_iterations, marching_cubes_step_size):
