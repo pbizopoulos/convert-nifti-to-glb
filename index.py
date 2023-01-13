@@ -21,7 +21,7 @@ async def process_file(event):
     marching_cubes_step_size_input_range = document.getElementById('marching-cubes-step-size-input-range')
     marching_cubes_step_size_input_range.disabled = True
     processing_div = document.getElementById('processing-div')
-    processing_div.textContent = 'Converting NifTi to GLB. It might take a few minutes...'
+    processing_div.textContent = 'Converting NIfTI to GLB. It might take a few minutes...'
     marching_cubes_step_size = int(marching_cubes_step_size_input_range.value)
     laplacian_smoothing_iterations = int(laplacian_smoothing_iterations_input_range.value)
     file_list = load_nifti_file_input_file.files.to_py()
