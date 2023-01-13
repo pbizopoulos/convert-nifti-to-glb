@@ -1,5 +1,5 @@
 from js import Blob, Uint8Array, document, window
-from main import generate_mesh
+from python.main import generate_mesh
 from pyodide.ffi.wrappers import add_event_listener
 import pyodide
 import sys

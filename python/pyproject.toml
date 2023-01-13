@@ -2,9 +2,9 @@
 name = "UNKNOWN"
 version = "0.0.0"
 dependencies = [
-	"nibabel==4.0.2",
+	"nibabel==5.0.0",
 	"scikit-image==0.19.3",
-	"trimesh==3.17.1",
+	"trimesh==3.18.0",
 ]
 
 [project.optional-dependencies]
