@@ -6,7 +6,7 @@ POSIX Utilities
 Git
 Docker
 
-# Check and build code
+# Download, check and build
 git clone https://github.com/pbizopoulos/nifti-to-glb-conversion-tool
 cd nifti-to-glb-conversion-tool/
 cd python/ && make check all && cd ..
