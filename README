@@ -2,11 +2,11 @@
 https://pbizopoulos.github.io/nifti-to-glb-conversion-tool
 
 # Requirements
-POSIX shell & utilities
+POSIX Utilities
 Git
 Docker
 
-# Check code and build
+# Check and build code
 git clone https://github.com/pbizopoulos/nifti-to-glb-conversion-tool
 cd nifti-to-glb-conversion-tool/
 cd python/ && make check all && cd ..
