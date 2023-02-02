@@ -3,7 +3,6 @@ from python.main import generate_mesh
 from pyodide.ffi.wrappers import add_event_listener
 import pyodide
 import sys
-import time
 
 
 def main():
@@ -11,7 +10,6 @@ def main():
 
 
 async def process_file(event):
-    start_time = time.time()
     convert_button = document.getElementById('convert-button')
     convert_button.disabled = True
     laplacian_smoothing_iterations_input_range = document.getElementById('laplacian-smoothing-iterations-input-range')
@@ -51,7 +49,7 @@ async def process_file(event):
         load_nifti_file_input_file.disabled = False
         marching_cubes_step_size_input_range.disabled = False
         laplacian_smoothing_iterations_input_range.disabled = False
-        processing_div.textContent = f'Conversion done in {time.time() - start_time:.1f} seconds.'
+        processing_div.textContent = f'Conversion done.'
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-FROM node:19.5.0
-RUN apt-get update && apt-get install -y jq
-COPY package.json .
-RUN npm install --global $(jq --raw-output ".devDependencies | to_entries | map_values( .key + \"@\" + .value ) | join(\" \")" package.json)
+FROM mcr.microsoft.com/playwright/python:v1.30.0-focal
+WORKDIR /work
+COPY pyproject.toml .
+RUN python3 -m pip install --upgrade pip && python3 -m pip install .[dev]
