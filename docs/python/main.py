@@ -1,4 +1,4 @@
-from os.path import isfile, join
+from os.path import isfile
 from urllib import request
 
 import numpy as np
@@ -10,11 +10,11 @@ from skimage.measure import marching_cubes
 def generate_mesh(data: str, laplacian_smoothing_iterations: int, marching_cubes_step_size: int) -> bytes:
     if isinstance(data, str):
         file_name = data.split('/')[-1]
-        if not isfile(data):
+        if not isfile(data): # noqa: PTH113
             request.urlretrieve(f'https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/dist/{file_name}', data)
         nifti_object = Nifti1Image.from_filename(data)
         file_name_without_extension = '.'.join(file_name.split('.')[:-1])
-        output_file_name = join('bin', f'{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb')
+        output_file_name = f'bin/{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb'
     else:
         nifti_object = Nifti1Image.from_bytes(bytearray(data))
         output_file_name = 'output.glb'
@@ -53,8 +53,8 @@ def generate_mesh(data: str, laplacian_smoothing_iterations: int, marching_cubes
 
 
 def main() -> None:
-    generate_mesh(join('bin', 'masks.nii'), 1, 2)
-    generate_mesh(join('bin', 'masks-multiclass.nii'), 1, 2)
+    generate_mesh('bin/masks.nii', 1, 2)
+    generate_mesh('bin/masks-multiclass.nii', 1, 2)
 
 
 if __name__ == '__main__':

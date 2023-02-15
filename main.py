@@ -1,12 +1,12 @@
 from hashlib import sha256
-from os.path import isfile, join
+from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
 
 def main() -> None:
-    input_nii_file_path = join('bin', 'masks-multiclass.nii')
-    if not isfile(input_nii_file_path):
+    input_nii_file_path = Path('bin/masks-multiclass.nii')
+    if not input_nii_file_path.is_file():
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch()
             page = browser.new_page()
@@ -26,15 +26,15 @@ def main() -> None:
         page.set_default_navigation_timeout(timeout)
         page.on('pageerror', lambda exception: (_ for _ in ()).throw(Exception(f'uncaught exception: {exception}')))
         page.goto('https://nifti-to-glb-conversion-tool.incisive.iti.gr/')
-        page.set_input_files('#load-nifti-file-input-file', input_nii_file_path)
+        page.set_input_files('#load-nifti-file-input-file', input_nii_file_path.resolve().as_posix())
         with page.expect_download() as download_info:
             page.click('#convert-button')
         download = download_info.value
-        download.save_as(join('bin', 'masks-multiclass-step-size-2-iterations-1.glb'))
-        with open(join('bin', 'masks-multiclass-step-size-2-iterations-1.glb'), 'rb') as file:
+        download.save_as('bin/masks-multiclass-step-size-2-iterations-1.glb')
+        with Path('bin/masks-multiclass-step-size-2-iterations-1.glb').open('rb') as file:
             assert sha256(file.read()).hexdigest() == 'a0a64cb2193fb0919525c51e6f83fe7811c6bd42f93481c0c6cfce204a81eaad'
-        page.screenshot(path=join('bin', 'screenshot.png'))
-        with open(join('bin', 'screenshot.png'), 'rb') as file:
+        page.screenshot(path='bin/screenshot.png')
+        with Path('bin/screenshot.png').open('rb') as file:
             assert sha256(file.read()).hexdigest() == '947b85dcf07c39fd78ad776b165d22e9a9d595191d37e02ae3abfbf09e0f859c'
         context.close()
         browser.close()
