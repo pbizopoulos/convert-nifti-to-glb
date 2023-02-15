@@ -7,7 +7,7 @@ from nibabel import Nifti1Image
 from skimage.measure import marching_cubes
 
 
-def generate_mesh(data, laplacian_smoothing_iterations, marching_cubes_step_size):
+def generate_mesh(data: str, laplacian_smoothing_iterations: int, marching_cubes_step_size: int) -> bytes:
     if isinstance(data, str):
         file_name = data.split('/')[-1]
         if not isfile(data):
@@ -52,7 +52,7 @@ def generate_mesh(data, laplacian_smoothing_iterations, marching_cubes_step_size
     return trimesh.exchange.export.export_mesh(tm, output_file_name)
 
 
-def main():
+def main() -> None:
     generate_mesh(join('bin', 'masks.nii'), 1, 2)
     generate_mesh(join('bin', 'masks-multiclass.nii'), 1, 2)
 

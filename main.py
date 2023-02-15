@@ -1,10 +1,10 @@
-import hashlib
+from hashlib import sha256
 from os.path import isfile, join
 
 from playwright.sync_api import sync_playwright
 
 
-def main():
+def main() -> None:
     input_nii_file_path = join('bin', 'masks-multiclass.nii')
     if not isfile(input_nii_file_path):
         with sync_playwright() as playwright:
@@ -32,10 +32,10 @@ def main():
         download = download_info.value
         download.save_as(join('bin', 'masks-multiclass-step-size-2-iterations-1.glb'))
         with open(join('bin', 'masks-multiclass-step-size-2-iterations-1.glb'), 'rb') as file:
-            assert hashlib.sha256(file.read()).hexdigest() == 'a0a64cb2193fb0919525c51e6f83fe7811c6bd42f93481c0c6cfce204a81eaad'
+            assert sha256(file.read()).hexdigest() == 'a0a64cb2193fb0919525c51e6f83fe7811c6bd42f93481c0c6cfce204a81eaad'
         page.screenshot(path=join('bin', 'screenshot.png'))
         with open(join('bin', 'screenshot.png'), 'rb') as file:
-            assert hashlib.sha256(file.read()).hexdigest() == '947b85dcf07c39fd78ad776b165d22e9a9d595191d37e02ae3abfbf09e0f859c'
+            assert sha256(file.read()).hexdigest() == '947b85dcf07c39fd78ad776b165d22e9a9d595191d37e02ae3abfbf09e0f859c'
         context.close()
         browser.close()
 
