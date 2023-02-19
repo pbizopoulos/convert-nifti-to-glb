@@ -49,7 +49,8 @@ def generate_mesh(data: str, laplacian_smoothing_iterations: int, marching_cubes
         tm.visual.material = tm.visual.material.to_pbr()
         tm.visual.material.alphaMode = 'BLEND'
         tm.visual.material.baseColorFactor[-1] = 127
-    return trimesh.exchange.export.export_mesh(tm, output_file_name) # type: ignore[no-any-return]
+    output: bytes = trimesh.exchange.export.export_mesh(tm, output_file_name)
+    return output
 
 
 def main() -> None:
