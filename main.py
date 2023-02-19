@@ -24,7 +24,7 @@ def main() -> None:
         timeout = 200000
         page.set_default_timeout(timeout)
         page.set_default_navigation_timeout(timeout)
-        page.on('pageerror', lambda exception: (_ for _ in ()).throw(Exception(f'uncaught exception: {exception}'))) # type: ignore[call-overload]
+        page.on('pageerror', lambda exception: print(f'uncaught exception: {exception}')) # noqa: 201
         page.goto('https://nifti-to-glb-conversion-tool.incisive.iti.gr/')
         page.set_input_files('#load-nifti-file-input-file', input_nii_file_path.resolve().as_posix())
         with page.expect_download() as download_info:
