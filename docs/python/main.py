@@ -20,15 +20,15 @@ def generate_mesh(data: str, laplacian_smoothing_iterations: int, marching_cubes
         output_file_name = 'output.glb'
     volume = nifti_object.get_fdata()
     volume = volume.astype('float32')
-    if np.unique(volume).size == 2:
+    if np.unique(volume).size == 2: # noqa: PLR2004
         verts, faces, *_ = marching_cubes(volume, spacing=nifti_object.header.get_zooms(), step_size=marching_cubes_step_size)
         tm = trimesh.base.Trimesh(vertices=verts, faces=faces, visual=trimesh.visual.TextureVisuals(material=trimesh.visual.material.PBRMaterial(alphaMode='BLEND', baseColorFactor=[31, 119, 180, 127])))
         tm.apply_scale(10 ** (-3))
         trimesh.repair.fix_inversion(tm)
         trimesh.repair.fill_holes(tm)
         trimesh.smoothing.filter_laplacian(tm, iterations=laplacian_smoothing_iterations)
-    elif np.unique(volume).size == 3:
-        volume[volume == 2] = 0
+    elif np.unique(volume).size == 3: # noqa: PLR2004
+        volume[volume == 2] = 0 # noqa: PLR2004
         verts, faces, *_ = marching_cubes(volume, spacing=nifti_object.header.get_zooms(), step_size=marching_cubes_step_size)
         tm = trimesh.base.Trimesh(vertices=verts, faces=faces, visual=trimesh.visual.TextureVisuals(material=trimesh.visual.material.PBRMaterial(alphaMode='BLEND', baseColorFactor=[31, 119, 180, 127])))
         tm.apply_scale(10 ** (-3))
@@ -38,7 +38,7 @@ def generate_mesh(data: str, laplacian_smoothing_iterations: int, marching_cubes
         volume = nifti_object.get_fdata()
         volume = volume.astype('float32')
         volume[volume == 1] = 0
-        volume[volume == 2] = 1
+        volume[volume == 2] = 1 # noqa: PLR2004
         verts2, faces2, *_ = marching_cubes(volume, spacing=nifti_object.header.get_zooms(), step_size=marching_cubes_step_size)
         tm2 = trimesh.base.Trimesh(vertices=verts2, faces=faces2, visual=trimesh.visual.TextureVisuals(material=trimesh.visual.material.PBRMaterial(alphaMode='BLEND', baseColorFactor=[255, 0, 0, 127])))
         tm2.apply_scale(10 ** (-3))
