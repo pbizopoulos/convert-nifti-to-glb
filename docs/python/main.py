@@ -3,7 +3,7 @@ from urllib import request
 
 import numpy as np
 import trimesh
-from nibabel import Nifti1Image
+from nibabel import Nifti1Image  # type: ignore[attr-defined]
 from skimage.measure import marching_cubes
 
 
