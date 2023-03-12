@@ -1,7 +1,7 @@
 from hashlib import sha256
 from pathlib import Path
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Error, sync_playwright
 
 
 def main() -> None:
@@ -24,7 +24,7 @@ def main() -> None:
         timeout = 200000
         page.set_default_timeout(timeout)
         page.set_default_navigation_timeout(timeout)
-        page.on('pageerror', lambda exception: print(f'uncaught exception: {exception}')) # noqa: 201
+        page.on('pageerror', page_error)
         page.goto('https://nifti-to-glb-conversion-tool.incisive.iti.gr/')
         page.set_input_files('#load-nifti-file-input-file', input_nii_file_path.resolve().as_posix())
         with page.expect_download() as download_info:
@@ -38,6 +38,10 @@ def main() -> None:
             assert sha256(file.read()).hexdigest() == '947b85dcf07c39fd78ad776b165d22e9a9d595191d37e02ae3abfbf09e0f859c'
         context.close()
         browser.close()
+
+
+def page_error(exception: Error) -> None:
+    raise exception
 
 
 if __name__ == '__main__':
