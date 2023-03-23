@@ -32,10 +32,10 @@ def main() -> None:
         download = download_info.value
         download.save_as("bin/masks-multiclass-step-size-2-iterations-1.glb")
         with Path("bin/masks-multiclass-step-size-2-iterations-1.glb").open("rb") as file:
-            assert sha256(file.read()).hexdigest() == "a0a64cb2193fb0919525c51e6f83fe7811c6bd42f93481c0c6cfce204a81eaad"
+            assert sha256(file.read()).hexdigest() == "bb5e6fc4d4d0be5009a6a8cf8794b4bee566ff39090288de0934534368e2af9f"
         page.screenshot(path="bin/screenshot.png")
         with Path("bin/screenshot.png").open("rb") as file:
-            assert sha256(file.read()).hexdigest() == "947b85dcf07c39fd78ad776b165d22e9a9d595191d37e02ae3abfbf09e0f859c"
+            assert sha256(file.read()).hexdigest() == "84d1ca92c1f2daba3a11323fc17fe40607f0eb56d6cf78e3f83d9ae21a6eefdb"
         context.close()
         browser.close()
 
