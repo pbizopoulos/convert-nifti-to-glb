@@ -1,4 +1,4 @@
-from os.path import isfile
+from pathlib import Path
 from urllib import request
 
 import numpy as np
@@ -10,7 +10,7 @@ from skimage.measure import marching_cubes
 def generate_mesh(data: str, laplacian_smoothing_iterations: int, marching_cubes_step_size: int) -> bytes:
     if isinstance(data, str):
         file_name = data.split("/")[-1]
-        if not isfile(data): # noqa: PTH113
+        if not Path(data).is_file():
             request.urlretrieve(f"https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/dist/{file_name}", data) # noqa: S310
         nifti_object = Nifti1Image.from_filename(data)
         file_name_without_extension = ".".join(file_name.split(".")[:-1])
