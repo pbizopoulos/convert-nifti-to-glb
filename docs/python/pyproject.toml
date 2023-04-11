@@ -2,7 +2,7 @@
 name = "UNKNOWN"
 version = "0.0.0"
 dependencies = [
-	"nibabel==5.0.1",
+	"nibabel==5.1.0",
 	"scikit-image==0.20.0",
 	"trimesh==3.21.3",
 ]
