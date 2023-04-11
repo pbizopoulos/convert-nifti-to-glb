@@ -1,11 +1,6 @@
 [project]
 name = "UNKNOWN"
 version = "0.0.0"
-dependencies = [
-	"nibabel==5.0.1",
-	"scikit-image==0.20.0",
-	"trimesh==3.21.3",
-]
 
 [project.optional-dependencies]
 dev = [
