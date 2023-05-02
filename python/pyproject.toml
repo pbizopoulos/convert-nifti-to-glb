@@ -5,5 +5,5 @@ version = "0.0.0"
 [project.optional-dependencies]
 dev = [
 	"mypy==1.2.0",
-	"ruff==0.0.263",
+	"ruff==0.0.264",
 ]
