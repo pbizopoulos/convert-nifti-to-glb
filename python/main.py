@@ -12,7 +12,9 @@ class TestWebApplication(unittest.TestCase):
             with sync_playwright() as playwright:
                 browser = playwright.chromium.launch()
                 page = browser.new_page()
-                page.goto("https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/latest")
+                page.goto(
+                    "https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/latest",
+                )
                 page.click("text=Assets")
                 with page.expect_download() as download_info:
                     page.click("text=masks-multiclass.nii")
@@ -30,16 +32,27 @@ class TestWebApplication(unittest.TestCase):
             page.set_default_navigation_timeout(timeout)
             page.on("pageerror", page_error)
             page.goto("https://nifti-to-glb-conversion-tool.incisive.iti.gr/")
-            page.set_input_files("#load-nifti-file-input-file", self.input_nii_file_path.resolve().as_posix())
+            page.set_input_files(
+                "#load-nifti-file-input-file",
+                self.input_nii_file_path.resolve().as_posix(),
+            )
             with page.expect_download() as download_info:
                 page.click("#convert-button")
             download = download_info.value
             download.save_as("bin/masks-multiclass-step-size-2-iterations-1.glb")
-            with Path("bin/masks-multiclass-step-size-2-iterations-1.glb").open("rb") as file:
-                assert sha256(file.read()).hexdigest() == "bb5e6fc4d4d0be5009a6a8cf8794b4bee566ff39090288de0934534368e2af9f"
+            with Path("bin/masks-multiclass-step-size-2-iterations-1.glb").open(
+                "rb",
+            ) as file:
+                assert (
+                    sha256(file.read()).hexdigest()
+                    == "bb5e6fc4d4d0be5009a6a8cf8794b4bee566ff39090288de0934534368e2af9f"  # noqa: E501
+                )
             page.screenshot(path="bin/screenshot.png")
             with Path("bin/screenshot.png").open("rb") as file:
-                assert sha256(file.read()).hexdigest() == "84d1ca92c1f2daba3a11323fc17fe40607f0eb56d6cf78e3f83d9ae21a6eefdb"
+                assert (
+                    sha256(file.read()).hexdigest()
+                    == "84d1ca92c1f2daba3a11323fc17fe40607f0eb56d6cf78e3f83d9ae21a6eefdb"  # noqa: E501
+                )
             context.close()
             browser.close()
 
