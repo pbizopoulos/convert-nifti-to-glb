@@ -5,6 +5,10 @@ from pathlib import Path
 from playwright.sync_api import Error, sync_playwright
 
 
+def page_error(exception: Error) -> None:
+    raise exception
+
+
 class TestWebApplication(unittest.TestCase):
     def setUp(self: "TestWebApplication") -> None:
         self.input_nii_file_path = Path("data/masks-multiclass.nii")
@@ -55,10 +59,6 @@ class TestWebApplication(unittest.TestCase):
                 )
             context.close()
             browser.close()
-
-
-def page_error(exception: Error) -> None:
-    raise exception
 
 
 if __name__ == "__main__":
