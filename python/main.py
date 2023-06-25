@@ -11,7 +11,7 @@ def page_error(exception: Error) -> None:
 
 class TestWebApplication(unittest.TestCase):
     def setUp(self: "TestWebApplication") -> None:
-        self.input_nii_file_path = Path("data/masks-multiclass.nii")
+        self.input_nii_file_path = Path("bin/masks-multiclass.nii")
         if not self.input_nii_file_path.is_file():
             with sync_playwright() as playwright:
                 browser = playwright.chromium.launch()

@@ -109,14 +109,8 @@ def generate_mesh(
 
 
 def main() -> None:
-    bin_file_path = Path("bin")
-    if not bin_file_path.exists():
-        bin_file_path.mkdir(parents=True)
-    data_file_path = Path("data")
-    if not data_file_path.exists():
-        data_file_path.mkdir(parents=True)
-    generate_mesh("data/masks.nii", 1, 2)
-    generate_mesh("data/masks-multiclass.nii", 1, 2)
+    generate_mesh("bin/masks.nii", 1, 2)
+    generate_mesh("bin/masks-multiclass.nii", 1, 2)
 
 
 if __name__ == "__main__":
