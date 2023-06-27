@@ -21,7 +21,7 @@ def generate_mesh(
             )
         nifti_object = Nifti1Image.from_filename(data)
         file_name_without_extension = ".".join(file_name.split(".")[:-1])
-        output_file_name = f"bin/{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb"  # noqa: E501
+        output_file_name = f"tmp/{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb"  # noqa: E501
     else:
         nifti_object = Nifti1Image.from_bytes(bytearray(data))
         output_file_name = "output.glb"
@@ -109,8 +109,8 @@ def generate_mesh(
 
 
 def main() -> None:
-    generate_mesh("bin/masks.nii", 1, 2)
-    generate_mesh("bin/masks-multiclass.nii", 1, 2)
+    generate_mesh("tmp/masks.nii", 1, 2)
+    generate_mesh("tmp/masks-multiclass.nii", 1, 2)
 
 
 if __name__ == "__main__":
