@@ -3,14 +3,14 @@ name = "UNKNOWN"
 version = "0.0.0"
 dependencies = [
 	"nibabel==5.1.0",
-	"scikit-image==0.20.0",
+	"scikit-image==0.21.0",
 	"trimesh==3.22.0",
 ]
 
 [project.optional-dependencies]
 dev = [
 	"black==23.3.0",
-	"mypy==1.4.0",
+	"mypy==1.4.1",
 	"ruff==0.0.275",
 	"ssort==0.11.6",
 ]
