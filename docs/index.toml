@@ -1,8 +1,0 @@
-packages = [
-	'nibabel',
-	'scikit-image',
-	'trimesh',
-]
-
-[[fetch]]
-files = ['./python/main.py']

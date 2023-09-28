@@ -1,0 +1,8 @@
+packages = [
+	'nibabel',
+	'scikit-image',
+	'trimesh',
+]
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/nifti-to-glb-conversion-tool/main/docs/python/main.py"
