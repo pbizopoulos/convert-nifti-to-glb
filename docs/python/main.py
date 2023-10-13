@@ -9,8 +9,8 @@ from skimage.measure import marching_cubes
 
 def generate_mesh(
     data: str,
-    laplacian_smoothing_iterations: int,
-    marching_cubes_step_size: int,
+    iterations: int,
+    step_size: int,
 ) -> bytes:
     if isinstance(data, str):
         file_name = data.split("/")[-1]
@@ -21,7 +21,7 @@ def generate_mesh(
             )
         nifti_object = Nifti1Image.from_filename(data)
         file_name_without_extension = ".".join(file_name.split(".")[:-1])
-        output_file_name = f"tmp/{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb"  # noqa: E501
+        output_file_name = f"tmp/{file_name_without_extension}-step-size-{step_size}-iterations-{iterations}.glb"  # noqa: E501
     else:
         nifti_object = Nifti1Image.from_bytes(bytearray(data))
         output_file_name = "output.glb"
@@ -31,7 +31,7 @@ def generate_mesh(
         verts, faces, *_ = marching_cubes(
             volume,
             spacing=nifti_object.header.get_zooms(),  # type: ignore[no-untyped-call]
-            step_size=marching_cubes_step_size,
+            step_size=step_size,
         )
         tm = trimesh.base.Trimesh(
             vertices=verts,
@@ -46,16 +46,13 @@ def generate_mesh(
         tm.apply_scale(10 ** (-3))
         trimesh.repair.fix_inversion(tm)
         trimesh.repair.fill_holes(tm)
-        trimesh.smoothing.filter_laplacian(
-            tm,
-            iterations=laplacian_smoothing_iterations,
-        )
+        trimesh.smoothing.filter_laplacian(tm, iterations=iterations)
     elif np.unique(volume).size == 3:  # noqa: PLR2004
         volume[volume == 2] = 0  # noqa: PLR2004
         verts, faces, *_ = marching_cubes(
             volume,
             spacing=nifti_object.header.get_zooms(),  # type: ignore[no-untyped-call]
-            step_size=marching_cubes_step_size,
+            step_size=step_size,
         )
         tm = trimesh.base.Trimesh(
             vertices=verts,
@@ -70,10 +67,7 @@ def generate_mesh(
         tm.apply_scale(10 ** (-3))
         trimesh.repair.fix_inversion(tm)
         trimesh.repair.fill_holes(tm)
-        trimesh.smoothing.filter_laplacian(
-            tm,
-            iterations=laplacian_smoothing_iterations,
-        )
+        trimesh.smoothing.filter_laplacian(tm, iterations=iterations)
         volume = nifti_object.get_fdata()
         volume = volume.astype("float32")
         volume[volume == 1] = 0
@@ -81,7 +75,7 @@ def generate_mesh(
         verts2, faces2, *_ = marching_cubes(
             volume,
             spacing=nifti_object.header.get_zooms(),  # type: ignore[no-untyped-call]
-            step_size=marching_cubes_step_size,
+            step_size=step_size,
         )
         tm2 = trimesh.base.Trimesh(
             vertices=verts2,
@@ -96,10 +90,7 @@ def generate_mesh(
         tm2.apply_scale(10 ** (-3))
         trimesh.repair.fix_inversion(tm2)
         trimesh.repair.fill_holes(tm2)
-        trimesh.smoothing.filter_laplacian(
-            tm2,
-            iterations=laplacian_smoothing_iterations,
-        )
+        trimesh.smoothing.filter_laplacian(tm2, iterations=iterations)
         tm = trimesh.util.concatenate([tm, tm2])
         tm.visual.material.alphaMode = "BLEND"
     output: bytes = trimesh.exchange.export.export_mesh(tm, output_file_name)
