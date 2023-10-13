@@ -49,7 +49,7 @@ class TestWebApplication(unittest.TestCase):
             ) as file:
                 assert (
                     sha256(file.read()).hexdigest()
-                    == "bb5e6fc4d4d0be5009a6a8cf8794b4bee566ff39090288de0934534368e2af9f"  # noqa: E501
+                    == "e32b75c132dba956d8c7bfff787d1b7014d203aeafa922c1c1ed558decd9e8ad"  # noqa: E501
                 )
             page.screenshot(path="tmp/screenshot.png")
             with Path("tmp/screenshot.png").open("rb") as file:
