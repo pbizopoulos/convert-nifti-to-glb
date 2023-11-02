@@ -93,8 +93,8 @@ def generate_mesh(data: str, iterations: int, step_size: int) -> bytes:
         trimesh.smoothing.filter_laplacian(tm2, iterations=iterations)
         tm = trimesh.util.concatenate([tm, tm2])
         tm.visual.material.alphaMode = "BLEND"
-    output: bytes = trimesh.exchange.export.export_mesh(tm, output_file_name)
-    return output
+    mesh: bytes = trimesh.exchange.export.export_mesh(tm, output_file_name)
+    return mesh
 
 
 async def on_click_convert_button(_: str) -> None:
