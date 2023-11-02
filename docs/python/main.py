@@ -7,11 +7,7 @@ from nibabel import Nifti1Image  # type: ignore[attr-defined]
 from skimage.measure import marching_cubes
 
 
-def generate_mesh(
-    data: str,
-    iterations: int,
-    step_size: int,
-) -> bytes:
+def generate_mesh(data: str, iterations: int, step_size: int) -> bytes:
     if isinstance(data, str):
         file_name = data.split("/")[-1]
         if not Path(data).is_file():
