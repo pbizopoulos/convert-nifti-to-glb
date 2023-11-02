@@ -2,12 +2,11 @@ import sys
 
 import pyodide
 from js import Blob, Uint8Array, document, window
+from main import generate_mesh
 from pyodide.ffi.wrappers import add_event_listener
 
-from main import generate_mesh
 
-
-async def process_file(event) -> None:
+async def process_file(_: str) -> None:
     convert_button = document.getElementById("convert-button")
     convert_button.disabled = True
     laplacian_smoothing_iterations_input_range = document.getElementById(
@@ -33,14 +32,16 @@ async def process_file(event) -> None:
         data = Uint8Array.new(await file.arrayBuffer())
         try:
             output = generate_mesh(
-                data, laplacian_smoothing_iterations, marching_cubes_step_size,
+                data,
+                laplacian_smoothing_iterations,
+                marching_cubes_step_size,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001
             convert_button.disabled = False
             load_nifti_file_input_file.disabled = False
             marching_cubes_step_size_input_range.disabled = False
             laplacian_smoothing_iterations_input_range.disabled = False
-            processing_div.textContent = "Out of memory. Try reducing the iterations and/or increasing the step size"
+            processing_div.textContent = "Out of memory. Try reducing the iterations and/or increasing the step size"  # noqa: E501
             sys.exit()
         content = pyodide.ffi.to_js(output)
         a = document.createElement("a")
@@ -50,7 +51,7 @@ async def process_file(event) -> None:
         url = window.URL.createObjectURL(blob)
         a.href = url
         file_name_without_extension = ".".join(file.name.split(".")[:-1])
-        a.download = f"{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb"
+        a.download = f"{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb"  # noqa: E501
         a.click()
         window.URL.revokeObjectURL(url)
         convert_button.disabled = False
@@ -60,7 +61,7 @@ async def process_file(event) -> None:
         processing_div.textContent = "Conversion done."
 
 
-def main():
+def main() -> None:
     add_event_listener(document.getElementById("convert-button"), "click", process_file)
 
 
