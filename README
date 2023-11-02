@@ -11,7 +11,6 @@ git clone https://github.com/pbizopoulos/nifti-to-glb-conversion-tool
 cd nifti-to-glb-conversion-tool/
 
 # Development
-cd docs/python/ && make clean check all && cd ../..
 cd docs/ && make clean check all && cd ..
 cd python/ && make clean check all && cd ..
 
