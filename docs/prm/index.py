@@ -6,7 +6,7 @@ from main import generate_mesh
 from pyodide.ffi.wrappers import add_event_listener
 
 
-async def process_file(_: str) -> None:
+async def on_click_convert_button(_: str) -> None:
     convert_button = document.getElementById("convert-button")
     convert_button.disabled = True
     laplacian_smoothing_iterations_input_range = document.getElementById(
@@ -62,7 +62,9 @@ async def process_file(_: str) -> None:
 
 
 def main() -> None:
-    add_event_listener(document.getElementById("convert-button"), "click", process_file)
+    add_event_listener(
+        document.getElementById("convert-button"), "click", on_click_convert_button,
+    )
 
 
 if __name__ == "__main__":
