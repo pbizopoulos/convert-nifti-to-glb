@@ -16,3 +16,4 @@ cd python/ && make clean check all && cd ..
 
 # Staging
 cd docs/ && make DEBUG=0
+
