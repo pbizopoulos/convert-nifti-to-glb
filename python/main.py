@@ -35,7 +35,7 @@ class TestWebApplication(unittest.TestCase):
             page.set_default_timeout(timeout)
             page.set_default_navigation_timeout(timeout)
             page.on("pageerror", page_error)
-            page.goto("https://nifti-to-glb-conversion-tool.incisive.iti.gr/")
+            page.goto("https://convert-nifti-to-glb.incisive.iti.gr/")
             page.set_input_files(
                 "#load-nifti-file-input-file",
                 self.input_nii_file_path.resolve().as_posix(),

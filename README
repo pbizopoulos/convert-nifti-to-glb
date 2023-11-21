@@ -1,5 +1,5 @@
-# NIfTI to GLB conversion tool
-https://pbizopoulos.github.io/nifti-to-glb-conversion-tool
+# Convert NIfTI to GLB
+https://pbizopoulos.github.io/convert-nifti-to-glb
 
 # Requirements
 POSIX Utilities
@@ -7,8 +7,8 @@ Git
 Docker
 
 # Download
-git clone https://github.com/pbizopoulos/nifti-to-glb-conversion-tool
-cd nifti-to-glb-conversion-tool/
+git clone https://github.com/pbizopoulos/convert-nifti-to-glb
+cd convert-nifti-to-glb/
 
 # Development
 cd docs/ && make clean check all && cd ..
