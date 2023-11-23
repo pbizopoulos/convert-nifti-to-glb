@@ -108,7 +108,9 @@ class Tests(unittest.TestCase):
 def main() -> None:
     num_arguments_allowed = 4
     if len(sys.argv) == num_arguments_allowed:
-        convert_nifti_to_glb(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
+        masks = convert_nifti_to_glb(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
+        with Path("output.glb").open("w") as file:
+            file.write(masks)
 
 
 if __name__ == "__main__":
