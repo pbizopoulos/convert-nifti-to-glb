@@ -30,7 +30,7 @@ async def on_click_convert_button(_: str) -> None:
     file_list = load_nifti_file_input_file.files.to_py()
     if not file_list:
         return
-    data = Uint8Array.new(await file_list[0].arrayBuffer())
+    data = Uint8Array.new(await file_list.item(0).arrayBuffer())
     try:
         output = convert_nifti_to_glb(
             data,
@@ -52,7 +52,7 @@ async def on_click_convert_button(_: str) -> None:
     blob = Blob.new([content])
     url = window.URL.createObjectURL(blob)
     a.href = url
-    file_name_without_extension = ".".join(file_list[0].name.split(".")[:-1])
+    file_name_without_extension = ".".join(file_list.item(0).name.split(".")[:-1])
     a.download = f"{file_name_without_extension}-step-size-{marching_cubes_step_size}-iterations-{laplacian_smoothing_iterations}.glb"  # noqa: E501
     a.click()
     window.URL.revokeObjectURL(url)
