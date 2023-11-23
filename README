@@ -17,3 +17,9 @@ cd python/ && make clean check all && cd ..
 # Staging
 cd docs/ && make DEBUG=0
 
+# Installation
+pip install https://github.com/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python
+
+# Usage
+convert_nifti_to_glb main.py
+

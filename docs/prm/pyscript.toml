@@ -3,3 +3,6 @@ packages = [
   "scikit-image",
   "trimesh"
 ]
+
+[[fetch]]
+from = "https://raw.githubusercontent.com/pbizopoulos/convert-nifti-to-glb/main/python/main.py"

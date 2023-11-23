@@ -1,6 +1,8 @@
 [project]
 dependencies = [
-  "playwright==1.39.0"
+  "nibabel==5.1.0",
+  "scikit-image==0.22.0",
+  "trimesh==4.0.5"
 ]
 name = "UNKNOWN"
 version = "0.0.0"
