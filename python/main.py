@@ -118,7 +118,7 @@ def main() -> None:
     if len(sys.argv) == num_arguments_allowed:
         masks = convert_nifti_to_glb(
             sys.argv[1],
-            sys.argv[3],
+            sys.argv[2],
             int(sys.argv[3]),
             int(sys.argv[4]),
         )
