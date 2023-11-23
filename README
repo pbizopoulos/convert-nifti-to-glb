@@ -21,5 +21,5 @@ cd docs/ && make DEBUG=0
 pip install https://github.com/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python
 
 # Usage
-convert_nifti_to_glb main.py
+convert_nifti_to_glb input.nii output.glb 1 2
 

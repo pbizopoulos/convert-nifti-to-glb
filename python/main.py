@@ -10,15 +10,18 @@ from nibabel import Nifti1Image
 from skimage.measure import marching_cubes
 
 
-def convert_nifti_to_glb(data: str, iterations: int, step_size: int) -> bytes:
+def convert_nifti_to_glb(
+    data: str,
+    output_file_name: str,
+    iterations: int,
+    step_size: int,
+) -> bytes:
     if isinstance(data, str):
         file_name = data.split("/")[-1]
         nifti_object = Nifti1Image.from_filename(data)
-        file_name_without_extension = ".".join(file_name.split(".")[:-1])
-        output_file_name = f"tmp/{file_name_without_extension}-step-size-{step_size}-iterations-{iterations}.glb"  # noqa: E501
+        ".".join(file_name.split(".")[:-1])
     else:
         nifti_object = Nifti1Image.from_bytes(bytearray(data))
-        output_file_name = "output.glb"
     volume = nifti_object.get_fdata()
     volume = volume.astype("float32")
     if np.unique(volume).size == 2:  # noqa: PLR2004
@@ -93,12 +96,17 @@ def convert_nifti_to_glb(data: str, iterations: int, step_size: int) -> bytes:
 
 class Tests(unittest.TestCase):
     def test_convert_nifti_to_glb(self: "Tests") -> None:
-        output_masks = convert_nifti_to_glb("tmp/masks.nii", 1, 2)
+        output_masks = convert_nifti_to_glb("tmp/masks.nii", "tmp/masks.glb", 1, 2)
         assert (
             sha256(output_masks).hexdigest()
             == "8eec1367dd602133cee555a504eb5e54e7b2f7c0e550110e3657fcc7a13d65cb"
         )
-        output_masks_multiclass = convert_nifti_to_glb("tmp/masks-multiclass.nii", 1, 2)
+        output_masks_multiclass = convert_nifti_to_glb(
+            "tmp/masks-multiclass.nii",
+            "tmp/masks-multiclass.glb",
+            1,
+            2,
+        )
         assert (
             sha256(output_masks_multiclass).hexdigest()
             == "e32b75c132dba956d8c7bfff787d1b7014d203aeafa922c1c1ed558decd9e8ad"
@@ -106,9 +114,14 @@ class Tests(unittest.TestCase):
 
 
 def main() -> None:
-    num_arguments_allowed = 4
+    num_arguments_allowed = 5
     if len(sys.argv) == num_arguments_allowed:
-        masks = convert_nifti_to_glb(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
+        masks = convert_nifti_to_glb(
+            sys.argv[1],
+            sys.argv[3],
+            int(sys.argv[3]),
+            int(sys.argv[4]),
+        )
         with Path("output.glb").open("w") as file:
             file.write(masks)
 
