@@ -122,7 +122,7 @@ def main() -> None:
             int(sys.argv[3]),
             int(sys.argv[4]),
         )
-        with Path("output.glb").open("w") as file:
+        with Path("output.glb").open("wb") as file:
             file.write(masks)
 
 
