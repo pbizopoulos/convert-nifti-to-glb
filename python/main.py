@@ -6,7 +6,7 @@ from urllib import request
 
 import numpy as np
 import trimesh
-from nibabel import Nifti1Image
+from nibabel import Nifti1Image  # type: ignore[attr-defined]
 from skimage.measure import marching_cubes
 
 
@@ -25,72 +25,72 @@ def convert_nifti_to_glb(
     volume = nifti_object.get_fdata()
     volume = volume.astype("float32")
     if np.unique(volume).size == 2:  # noqa: PLR2004
-        verts, faces, *_ = marching_cubes(
+        verts, faces, *_ = marching_cubes(  # type: ignore[no-untyped-call]
             volume,
-            spacing=nifti_object.header.get_zooms(),
+            spacing=nifti_object.header.get_zooms(),  # type: ignore[no-untyped-call]
             step_size=step_size,
         )
         tm = trimesh.base.Trimesh(
             vertices=verts,
             faces=faces,
-            visual=trimesh.visual.TextureVisuals(
-                material=trimesh.visual.material.PBRMaterial(
+            visual=trimesh.visual.TextureVisuals(  # type: ignore[no-untyped-call]
+                material=trimesh.visual.material.PBRMaterial(  # type: ignore[no-untyped-call]
                     alphaMode="BLEND",
                     baseColorFactor=[31, 119, 180, 127],
                 ),
             ),
         )
-        tm.apply_scale(10 ** (-3))
-        trimesh.repair.fix_inversion(tm)
-        trimesh.repair.fill_holes(tm)
-        trimesh.smoothing.filter_laplacian(tm, iterations=iterations)
+        tm.apply_scale(10 ** (-3))  # type: ignore[no-untyped-call]
+        trimesh.repair.fix_inversion(tm)  # type: ignore[no-untyped-call]
+        trimesh.repair.fill_holes(tm)  # type: ignore[no-untyped-call]
+        trimesh.smoothing.filter_laplacian(tm, iterations=iterations)  # type: ignore[no-untyped-call]
     elif np.unique(volume).size == 3:  # noqa: PLR2004
         volume[volume == 2] = 0  # noqa: PLR2004
-        verts, faces, *_ = marching_cubes(
+        verts, faces, *_ = marching_cubes(  # type: ignore[no-untyped-call]
             volume,
-            spacing=nifti_object.header.get_zooms(),
+            spacing=nifti_object.header.get_zooms(),  # type: ignore[no-untyped-call]
             step_size=step_size,
         )
         tm = trimesh.base.Trimesh(
             vertices=verts,
             faces=faces,
-            visual=trimesh.visual.TextureVisuals(
-                material=trimesh.visual.material.PBRMaterial(
+            visual=trimesh.visual.TextureVisuals(  # type: ignore[no-untyped-call]
+                material=trimesh.visual.material.PBRMaterial(  # type: ignore[no-untyped-call]
                     alphaMode="BLEND",
                     baseColorFactor=[31, 119, 180, 127],
                 ),
             ),
         )
-        tm.apply_scale(10 ** (-3))
-        trimesh.repair.fix_inversion(tm)
-        trimesh.repair.fill_holes(tm)
-        trimesh.smoothing.filter_laplacian(tm, iterations=iterations)
+        tm.apply_scale(10 ** (-3))  # type: ignore[no-untyped-call]
+        trimesh.repair.fix_inversion(tm)  # type: ignore[no-untyped-call]
+        trimesh.repair.fill_holes(tm)  # type: ignore[no-untyped-call]
+        trimesh.smoothing.filter_laplacian(tm, iterations=iterations)  # type: ignore[no-untyped-call]
         volume = nifti_object.get_fdata()
         volume = volume.astype("float32")
         volume[volume == 1] = 0
         volume[volume == 2] = 1  # noqa: PLR2004
-        verts2, faces2, *_ = marching_cubes(
+        verts2, faces2, *_ = marching_cubes(  # type: ignore[no-untyped-call]
             volume,
-            spacing=nifti_object.header.get_zooms(),
+            spacing=nifti_object.header.get_zooms(),  # type: ignore[no-untyped-call]
             step_size=step_size,
         )
         tm2 = trimesh.base.Trimesh(
             vertices=verts2,
             faces=faces2,
-            visual=trimesh.visual.TextureVisuals(
-                material=trimesh.visual.material.PBRMaterial(
+            visual=trimesh.visual.TextureVisuals(  # type: ignore[no-untyped-call]
+                material=trimesh.visual.material.PBRMaterial(  # type: ignore[no-untyped-call]
                     alphaMode="BLEND",
                     baseColorFactor=[255, 0, 0, 127],
                 ),
             ),
         )
-        tm2.apply_scale(10 ** (-3))
-        trimesh.repair.fix_inversion(tm2)
-        trimesh.repair.fill_holes(tm2)
-        trimesh.smoothing.filter_laplacian(tm2, iterations=iterations)
-        tm = trimesh.util.concatenate([tm, tm2])
+        tm2.apply_scale(10 ** (-3))  # type: ignore[no-untyped-call]
+        trimesh.repair.fix_inversion(tm2)  # type: ignore[no-untyped-call]
+        trimesh.repair.fill_holes(tm2)  # type: ignore[no-untyped-call]
+        trimesh.smoothing.filter_laplacian(tm2, iterations=iterations)  # type: ignore[no-untyped-call]
+        tm = trimesh.util.concatenate([tm, tm2])  # type: ignore[no-untyped-call]
         tm.visual.material.alphaMode = "BLEND"
-    mesh: bytes = trimesh.exchange.export.export_mesh(tm, output_file_name)
+    mesh: bytes = trimesh.exchange.export.export_mesh(tm, output_file_name)  # type: ignore[no-untyped-call]
     return mesh
 
 
