@@ -1,4 +1,3 @@
-import sys
 import unittest
 from hashlib import sha256
 from pathlib import Path
@@ -12,9 +11,9 @@ from skimage.measure import marching_cubes
 
 def convert_nifti_to_glb(
     data: str,
-    output_file_name: str,
-    iterations: int,
-    step_size: int,
+    output_file_name: str = "output.glb",
+    iterations: int = 1,
+    step_size: int = 2,
 ) -> bytes:
     if isinstance(data, str):
         file_name = data.split("/")[-1]
@@ -114,16 +113,9 @@ class Tests(unittest.TestCase):
 
 
 def main() -> None:
-    num_arguments_allowed = 5
-    if len(sys.argv) == num_arguments_allowed:
-        masks = convert_nifti_to_glb(
-            sys.argv[1],
-            sys.argv[2],
-            int(sys.argv[3]),
-            int(sys.argv[4]),
-        )
-        with Path("output.glb").open("wb") as file:
-            file.write(masks)
+    import fire
+
+    fire.Fire(convert_nifti_to_glb)
 
 
 if __name__ == "__main__":
