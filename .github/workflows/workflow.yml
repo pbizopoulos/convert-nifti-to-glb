@@ -12,7 +12,7 @@ jobs:
           cd python/ && make clean check all && cd ..
       - name: Create artifact and upload
         run: |
-          cd python/ && make STAGING=1 cmd="pyinstaller --specpath tmp/spec --distpath tmp/dist --workpath tmp/build --onefile --windowed main.py"
+          cd python/ && touch main.py && make STAGING=1 cmd="pyinstaller --specpath tmp/spec --distpath tmp/dist --workpath tmp/build --onefile --windowed main.py"
       - uses: actions/upload-artifact@v3
         with:
           name: convert-nifti-to-glb
