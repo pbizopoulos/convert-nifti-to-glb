@@ -17,9 +17,13 @@ dev = [
   "ssort==0.11.6",
   "toml-sort==0.23.1"
 ]
+gui = [
+  "gooey==1.0.8.1",
+  "pyinstaller==6.2.0"
+]
 
 [project.scripts]
-convert_nifti_to_glb = "main:main"
+convert_nifti_to_glb = "main:main_cli"
 
 [tool.setuptools]
 py-modules = ["main"]

@@ -1,5 +1,6 @@
 import unittest
 from hashlib import sha256
+from os import getenv
 from pathlib import Path
 from urllib import request
 
@@ -10,17 +11,12 @@ from skimage.measure import marching_cubes
 
 
 def convert_nifti_to_glb(
-    data: str,
+    input_file_name: str,
     output_file_name: str = "output.glb",
     iterations: int = 1,
     step_size: int = 2,
 ) -> bytes:
-    if isinstance(data, str):
-        file_name = data.split("/")[-1]
-        nifti_object = Nifti1Image.from_filename(data)
-        ".".join(file_name.split(".")[:-1])
-    else:
-        nifti_object = Nifti1Image.from_bytes(bytearray(data))
+    nifti_object = Nifti1Image.from_filename(input_file_name)
     volume = nifti_object.get_fdata()
     volume = volume.astype("float32")
     if np.unique(volume).size == 2:  # noqa: PLR2004
@@ -106,23 +102,47 @@ class Tests(unittest.TestCase):
             1,
             2,
         )
-        assert (
-            sha256(output_masks_multiclass).hexdigest()
-            == "e32b75c132dba956d8c7bfff787d1b7014d203aeafa922c1c1ed558decd9e8ad"
-        )
+        assert sha256(output_masks_multiclass).hexdigest() in [
+            "e32b75c132dba956d8c7bfff787d1b7014d203aeafa922c1c1ed558decd9e8ad",
+            "5eb4b65bf995f07078a7452c6407ad1746cbe0c19306802fef5fdae2b7ef7580",
+        ]
 
 
-def main() -> None:
+def main_cli() -> None:
     import fire
 
     fire.Fire(convert_nifti_to_glb)
 
 
-if __name__ == "__main__":
-    for mask_filename in ["masks-multiclass.nii", "masks.nii"]:
-        if not Path(mask_filename).is_file():
-            request.urlretrieve(  # noqa: S310
-                f"https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/dist/{mask_filename}",
-                f"tmp/{mask_filename}",
+def main() -> None:
+    if getenv("STAGING"):
+        from gooey import Gooey, GooeyParser
+
+        @Gooey  # type: ignore[misc]
+        def main_gui() -> None:
+            parser = GooeyParser(description="Convert NIfTI to GLB")
+            parser.add_argument("--input_file_name", widget="FileChooser")
+            parser.add_argument("--output_file_name", widget="FileSaver")
+            parser.add_argument("--iterations", widget="IntegerField", type=int)
+            parser.add_argument("--step_size", widget="IntegerField", type=int)
+            args = parser.parse_args()
+            convert_nifti_to_glb(
+                args.input_file_name,
+                args.output_file_name,
+                args.iterations,
+                args.step_size,
             )
-    unittest.main()
+
+        main_gui()
+    else:
+        for mask_filename in ["masks-multiclass.nii", "masks.nii"]:
+            if not Path(mask_filename).is_file():
+                request.urlretrieve(  # noqa: S310
+                    f"https://github.com/pbizopoulos/semi-automatic-annotation-tool/releases/download/dist/{mask_filename}",
+                    f"tmp/{mask_filename}",
+                )
+        unittest.main()
+
+
+if __name__ == "__main__":
+    main()

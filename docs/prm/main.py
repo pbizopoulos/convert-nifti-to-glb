@@ -1,9 +1,12 @@
 import sys
+from pathlib import Path
 
 import pyodide
+import nibabel
 from js import Blob, Uint8Array, document, window
 from pyodide.ffi.wrappers import add_event_listener
 from main import convert_nifti_to_glb
+from nibabel import Nifti1Image  # type: ignore[attr-defined]
 
 
 async def on_click_convert_button(_: str) -> None:
@@ -28,12 +31,15 @@ async def on_click_convert_button(_: str) -> None:
         laplacian_smoothing_iterations_input_range.value,
     )
     file_list = load_nifti_file_input_file.files.to_py()
+    input_file_name = file_list.item(0).name
+    data = Uint8Array.new(await file_list.item(0).arrayBuffer())
+    nifti_object = Nifti1Image.from_bytes(bytearray(data))
+    nibabel.save(nifti_object, input_file_name)
     if not file_list:
         return
-    data = Uint8Array.new(await file_list.item(0).arrayBuffer())
     try:
         output = convert_nifti_to_glb(
-            data,
+            input_file_name,
             "output.glb",
             laplacian_smoothing_iterations,
             marching_cubes_step_size,
