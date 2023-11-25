@@ -12,8 +12,7 @@ jobs:
           cd python/ && make clean check all && cd ..
       - name: Create artifact and upload
         run: |
-          echo "from os import environ; environ['STAGING'] = 1" > runtime_hook.py
-          cd python/ && touch main.py && make STAGING=1 cmd="pyinstaller --runtime-hook ../runtime_hook.py --specpath tmp/spec --distpath tmp/dist --workpath tmp/build --onefile --windowed main.py"
+          cd python/ && echo "from os import environ; environ['STAGING'] = 1" > runtime_hook.py && touch main.py && make STAGING=1 cmd="pyinstaller --runtime-hook runtime_hook.py --specpath tmp/spec --distpath tmp/dist --workpath tmp/build --onefile --windowed main.py"
       - uses: actions/upload-artifact@v3
         with:
           name: convert-nifti-to-glb
