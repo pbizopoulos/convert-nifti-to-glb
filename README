@@ -16,6 +16,7 @@ cd python/ && make clean check all && cd ..
 
 # Staging
 cd docs/ && make STAGING=1
+cd python/ && make STAGING=1
 
 # Installation
 pip install https://github.com/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python
