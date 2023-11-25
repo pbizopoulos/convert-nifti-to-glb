@@ -1,12 +1,12 @@
 import sys
-from pathlib import Path
 
-import pyodide
 import nibabel
+import pyodide
 from js import Blob, Uint8Array, document, window
+from nibabel import Nifti1Image
 from pyodide.ffi.wrappers import add_event_listener
-from main import convert_nifti_to_glb
-from nibabel import Nifti1Image  # type: ignore[attr-defined]
+
+from main import convert_nifti_to_glb  # type: ignore[attr-defined]
 
 
 async def on_click_convert_button(_: str) -> None:
@@ -49,7 +49,9 @@ async def on_click_convert_button(_: str) -> None:
         load_nifti_file_input_file.disabled = False
         marching_cubes_step_size_input_range.disabled = False
         laplacian_smoothing_iterations_input_range.disabled = False
-        processing_div.textContent = "Out of memory. Try reducing the iterations and/or increasing the step size"  # noqa: E501
+        processing_div.textContent = (
+            "Out of memory. Try reducing the iterations and/or increasing the step size"
+        )
         sys.exit()
     content = pyodide.ffi.to_js(output)
     a = document.createElement("a")
