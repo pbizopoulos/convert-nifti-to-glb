@@ -16,7 +16,10 @@ def convert_nifti_to_glb(
     iterations: int = 1,
     step_size: int = 2,
 ) -> bytes:
-    nifti_object = Nifti1Image.from_filename(input_file_name)
+    if isinstance(input_file_name, str):
+        nifti_object = Nifti1Image.from_filename(input_file_name)
+    else:
+        nifti_object = Nifti1Image.from_bytes(bytearray(input_file_name))
     volume = nifti_object.get_fdata()
     volume = volume.astype("float32")
     if np.unique(volume).size == 2:  # noqa: PLR2004
