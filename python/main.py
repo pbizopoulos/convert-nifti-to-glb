@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import unittest
 from hashlib import sha256
 from os import getenv
@@ -11,7 +13,7 @@ from skimage.measure import marching_cubes
 
 
 def convert_nifti_to_glb(
-    input_file_name: str,
+    input_file_name: bytes | str,
     output_file_name: str = "output.glb",
     iterations: int = 1,
     step_size: int = 2,
@@ -93,7 +95,28 @@ def convert_nifti_to_glb(
 
 
 class Tests(unittest.TestCase):
-    def test_convert_nifti_to_glb(self: "Tests") -> None:
+    def test_convert_nifti_to_glb_bytes_input(self: Tests) -> None:
+        with Path("tmp/masks.nii").open("rb") as file:
+            masks_bytes = file.read()
+        output_masks = convert_nifti_to_glb(masks_bytes, "tmp/masks.glb", 1, 2)
+        assert (
+            sha256(output_masks).hexdigest()
+            == "8eec1367dd602133cee555a504eb5e54e7b2f7c0e550110e3657fcc7a13d65cb"
+        )
+        with Path("tmp/masks-multiclass.nii").open("rb") as file:
+            masks_multiclass_bytes = file.read()
+        output_masks_multiclass = convert_nifti_to_glb(
+            masks_multiclass_bytes,
+            "tmp/masks-multiclass.glb",
+            1,
+            2,
+        )
+        assert sha256(output_masks_multiclass).hexdigest() in [
+            "e32b75c132dba956d8c7bfff787d1b7014d203aeafa922c1c1ed558decd9e8ad",
+            "5eb4b65bf995f07078a7452c6407ad1746cbe0c19306802fef5fdae2b7ef7580",
+        ]
+
+    def test_convert_nifti_to_glb_file_input(self: Tests) -> None:
         output_masks = convert_nifti_to_glb("tmp/masks.nii", "tmp/masks.glb", 1, 2)
         assert (
             sha256(output_masks).hexdigest()
@@ -125,9 +148,15 @@ def main() -> None:
         def main_gui() -> None:
             parser = GooeyParser(description="Convert NIfTI to GLB")
             parser.add_argument("--input_file_name", widget="FileChooser")
-            parser.add_argument("--output_file_name", widget="FileSaver")
-            parser.add_argument("--iterations", widget="IntegerField", type=int)
-            parser.add_argument("--step_size", widget="IntegerField", type=int)
+            parser.add_argument(
+                "--output_file_name", widget="FileSaver", initial_value="output.glb",
+            )
+            parser.add_argument(
+                "--iterations", widget="IntegerField", type=int, initial_value=1,
+            )
+            parser.add_argument(
+                "--step_size", widget="IntegerField", type=int, initial_value=2,
+            )
             args = parser.parse_args()
             convert_nifti_to_glb(
                 args.input_file_name,
