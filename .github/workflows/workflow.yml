@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Check code and build
         run: |
-          set DOCKER_CLI_EXPERIMENTAL=enabled
+          echo "{ `"experimental`: `"enabled`" }" | Out-File -Append 'C:\ProgramData\Docker\config\daemon.json'; Restart-Service docker
           cd docs/ && make clean check all && cd ..
           cd python/ && make clean check all && cd ..
       - name: Create artifact and upload
