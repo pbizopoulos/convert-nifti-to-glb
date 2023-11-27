@@ -152,8 +152,7 @@ def main() -> None:
                 "--output_file_name",
                 widget="FileSaver",
                 gooey_options={
-                    "wildcard": "GL Transmission Format Binary file (*.glb)|"
-                    "All files (*.*)|*.*",
+                    "wildcard": "GL Transmission Format Binary file (*.glb)|All files (*.*)|*.*",  # noqa: E501
                     "default_dir": ".",
                     "default_file": "output.glb",
                 },
