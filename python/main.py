@@ -149,13 +149,28 @@ def main() -> None:
             parser = GooeyParser(description="Convert NIfTI to GLB")
             parser.add_argument("--input_file_name", widget="FileChooser")
             parser.add_argument(
-                "--output_file_name", widget="FileSaver", initial_value="output.glb",
+                "--output_file_name",
+                widget="FileSaver",
+                gooey_options={
+                    "wildcard": "GL Transmission Format Binary file (*.glb)|"
+                    "All files (*.*)|*.*",
+                    "default_dir": ".",
+                    "default_file": "output.glb",
+                },
             )
             parser.add_argument(
-                "--iterations", widget="IntegerField", type=int, initial_value=1,
+                "--iterations",
+                widget="IntegerField",
+                type=int,
+                gooey_options={"initial_value": 1},
             )
             parser.add_argument(
-                "--step_size", widget="IntegerField", type=int, initial_value=2,
+                "--step_size",
+                widget="IntegerField",
+                type=int,
+                gooey_options={
+                    "initial_value": 2,
+                },
             )
             args = parser.parse_args()
             convert_nifti_to_glb(
