@@ -25,4 +25,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: convert-nifti-to-glb
-          path: python/tmp/dist/main
+          path: python/tmp/dist/main.exe
