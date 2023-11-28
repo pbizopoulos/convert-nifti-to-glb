@@ -14,6 +14,7 @@ jobs:
         with:
           name: convert-nifti-to-glb
           path: python/tmp/dist/main
+  make-windows:
     runs-on: windows-2019
     steps:
       - name: Set up Git repository
