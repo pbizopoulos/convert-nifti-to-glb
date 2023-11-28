@@ -5,4 +5,4 @@ packages = [
 ]
 
 [[fetch]]
-from = "https://raw.githubusercontent.com/pbizopoulos/convert-nifti-to-glb/main/python/main.py"
+from = "https://raw.githubusercontent.com/pbizopoulos/convert-nifti-to-glb/main/python/python/main.py"
