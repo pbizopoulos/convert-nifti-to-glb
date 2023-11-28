@@ -53,6 +53,8 @@ def main() -> None:
                 "main.py",
                 "--distpath",
                 "tmp/dist",
+                "--name",
+                "convert-nifti-to-glb",
                 "--runtime-hook",
                 "prm/runtime_hook.py",
                 "--onefile",

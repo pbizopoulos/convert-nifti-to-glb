@@ -12,8 +12,8 @@ jobs:
           cd python/ && make clean check all && cd ..
       - uses: actions/upload-artifact@v3
         with:
-          name: convert-nifti-to-glb
-          path: python/tmp/dist/main
+          name: convert-nifti-to-glb-linux
+          path: python/tmp/dist/convert-nifti-to-glb
   make-windows:
     runs-on: windows-2022
     steps:
@@ -25,4 +25,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: convert-nifti-to-glb-windows
-          path: python/tmp/dist/main.exe
+          path: python/tmp/dist/convert-nifti-to-glb.exe
