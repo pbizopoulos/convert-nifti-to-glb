@@ -24,5 +24,5 @@ jobs:
           cd python/ && python3 -m pip install --upgrade pip && python3 -m pip install .[dev] && python3 main.py && cd ..
       - uses: actions/upload-artifact@v3
         with:
-          name: convert-nifti-to-glb
+          name: convert-nifti-to-glb-windows
           path: python/tmp/dist/main.exe
