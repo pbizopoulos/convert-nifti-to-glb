@@ -22,7 +22,7 @@ jobs:
       - name: Check code and build
         run: |
           stop-service *docker*
-          powershell -WindowStyle Hidden "dockerd --experimental"
+          powershell -WindowStyle Hidden "dockerd --experimental" &
           cd docs/ && make clean check all && cd ..
           cd python/ && make clean check all && cd ..
       - uses: actions/upload-artifact@v3
