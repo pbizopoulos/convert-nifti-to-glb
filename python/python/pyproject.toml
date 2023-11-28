@@ -1,13 +1,11 @@
 [project]
 dependencies = [
   "fire==0.5.0",
-  "gooey==1.0.8.1",
   "nibabel==5.1.0",
-  "pyinstaller==6.2.0",
   "scikit-image==0.22.0",
   "trimesh==4.0.5"
 ]
-name = "UNKNOWN"
+name = "convert-nifti-to-glb"
 version = "0.0.0"
 
 [project.optional-dependencies]
@@ -19,3 +17,9 @@ dev = [
   "ssort==0.11.6",
   "toml-sort==0.23.1"
 ]
+
+[project.scripts]
+convert_nifti_to_glb = "main:main_cli"
+
+[tool.setuptools]
+py-modules = ["main"]

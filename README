@@ -12,14 +12,14 @@ cd convert-nifti-to-glb/
 
 # Development
 cd docs/ && make clean check all && cd ..
+cd python/python/ && make clean check all && cd ../..
 cd python/ && make clean check all && cd ..
 
 # Staging
 cd docs/ && make STAGING=1
-cd python/ && make STAGING=1
 
 # Installation
-pip install https://github.com/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python
+pip install https://github.com/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python/python
 
 # Usage
 convert_nifti_to_glb input.nii output.glb 1 2
