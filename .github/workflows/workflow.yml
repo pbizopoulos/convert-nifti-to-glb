@@ -37,8 +37,8 @@ jobs:
             convert-nifti-to-glb-windows
       - name: Release
         uses: softprops/action-gh-release@v1
-        prerelease: true
         with:
+          prerelease: true
           files: |
             convert-nifti-to-glb-linux
             convert-nifti-to-glb-windows
