@@ -40,7 +40,8 @@ jobs:
           name: convert-nifti-to-glb-windows
       - uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           artifacts: "convert-nifti-to-glb-linux,convert-nifti-to-glb-windows"
-          tag: ${{ needs.tag_version.outputs.tag }}
           draft: true
+          tag: ${{ github.sha }}
           commit: main
