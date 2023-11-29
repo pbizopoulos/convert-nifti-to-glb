@@ -34,9 +34,12 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
       - uses: ncipollo/release-action@v1
+      - name: Check code and build
+        run: |
+          ls convert-nifti-to-glb-windows
         with:
           allowUpdates: true
-          artifacts: "convert-nifti-to-glb-windows"
+          artifacts: "convert-nifti-to-glb-windows/convert-nifti-to-glb-windows"
           draft: true
           tag: "dist"
           commit: main
