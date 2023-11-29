@@ -38,7 +38,8 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: convert-nifti-to-glb-windows
-      - uses: ncipollo/release-action@v1
+      - name: Release
+        uses: ncipollo/release-action@v1
 	with:
 	  artifacts: "convert-nifti-to-glb-linux,convert-nifti-to-glb-windows"
           tag: ${{ needs.tag_version.outputs.tag }}
