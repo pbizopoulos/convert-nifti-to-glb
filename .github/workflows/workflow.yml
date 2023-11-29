@@ -26,3 +26,24 @@ jobs:
         with:
           name: convert-nifti-to-glb-windows
           path: python/tmp/dist/convert-nifti-to-glb.exe
+  release:
+    needs: [make, make-windows]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: |
+            convert-nifti-to-glb-linux
+            convert-nifti-to-glb-windows
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        prerelease: true
+        with:
+          files: |
+            convert-nifti-to-glb-linux
+            convert-nifti-to-glb-windows
+      - uses: dev-drprasad/delete-older-releases@v0.3.2
+        with:
+          keep_latest: 1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
