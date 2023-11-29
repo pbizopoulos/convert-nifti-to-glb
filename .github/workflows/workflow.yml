@@ -29,6 +29,7 @@ jobs:
   release:
     needs: [make, make-windows]
     runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/download-artifact@v3
         with:
