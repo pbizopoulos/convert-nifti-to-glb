@@ -40,7 +40,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: ${{ github.workspace }}/convert-nifti-to-glb-windows.exe
+          artifacts: convert-nifti-to-glb.exe
           draft: true
           tag: "dist"
           commit: main
