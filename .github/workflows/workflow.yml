@@ -33,13 +33,10 @@ jobs:
       contents: write
     steps:
       - uses: actions/download-artifact@v3
-      - name: Check code and build
-        run: |
-          ls convert-nifti-to-glb-windows
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "convert-nifti-to-glb-windows/convert-nifti-to-glb-windows"
+          artifacts: "convert-nifti-to-glb-windows/convert-nifti-to-glb-windows.exe"
           draft: true
           tag: "dist"
           commit: main
