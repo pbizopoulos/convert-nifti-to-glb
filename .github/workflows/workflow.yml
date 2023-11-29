@@ -33,6 +33,10 @@ jobs:
       contents: write
     steps:
       - uses: actions/download-artifact@v3
+      - name: Check code and build
+        run: |
+          pwd
+          ls convert-nifti-to-glb-windows
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
