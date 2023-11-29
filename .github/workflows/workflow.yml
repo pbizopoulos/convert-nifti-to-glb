@@ -41,7 +41,7 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "convert-nifti-to-glb-linux,convert-nifti-to-glb-windows"
+          artifacts: "convert-nifti-to-glb/convert-nifti-to-glb-linux,convert-nifti-to-glb/convert-nifti-to-glb-windows"
           draft: true
-          tag: ${{ github.sha }}
+          tag: "dist"
           commit: main
