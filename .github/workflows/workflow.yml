@@ -32,9 +32,12 @@ jobs:
     steps:
       - uses: actions/download-artifact@v3
         with:
-          name: |
-            convert-nifti-to-glb-linux
-            convert-nifti-to-glb-windows
+          name: convert-nifti-to-glb-linux
+          path: convert-nifti-to-glb-linux
+      - uses: actions/download-artifact@v3
+        with:
+          name: convert-nifti-to-glb-windows
+          path: convert-nifti-to-glb-windows
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
