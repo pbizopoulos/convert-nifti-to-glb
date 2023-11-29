@@ -27,7 +27,7 @@ jobs:
           name: convert-nifti-to-glb-windows
           path: python/tmp/dist/convert-nifti-to-glb.exe
   release:
-    needs: [make, make-windows]
+    needs: [make-windows]
     runs-on: ubuntu-20.04
     permissions:
       contents: write
