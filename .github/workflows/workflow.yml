@@ -10,7 +10,7 @@ jobs:
         run: |
           cd docs/ && make clean check all && cd ..
           cd python/ && make clean check all && cd ..
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: convert-nifti-to-glb-linux
           path: python/tmp/dist/convert-nifti-to-glb
@@ -22,7 +22,7 @@ jobs:
       - name: Check code and build
         run: |
           cd python/ && python3 -m pip install --upgrade pip && python3 -m pip install .[dev] && python3 main.py && cd ..
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: convert-nifti-to-glb-windows
           path: python/tmp/dist/convert-nifti-to-glb.exe
