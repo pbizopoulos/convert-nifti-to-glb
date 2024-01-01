@@ -3,7 +3,7 @@ dependencies = [
   "fire==0.5.0",
   "nibabel==5.2.0",
   "scikit-image==0.22.0",
-  "trimesh==4.0.5"
+  "trimesh==4.0.8"
 ]
 name = "convert-nifti-to-glb"
 version = "0.0.0"
