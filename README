@@ -2,7 +2,7 @@
 https://pbizopoulos.github.io/convert-nifti-to-glb
 
 # Requirements
-POSIX Utilities
+POSIX Shell & Utilities
 Git
 Docker
 
