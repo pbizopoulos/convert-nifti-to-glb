@@ -7,8 +7,8 @@ Git
 Docker
 
 # Download
-git clone https://github.com/pbizopoulos/convert-nifti-to-glb
-cd convert-nifti-to-glb/
+git clone https://github.com/pbizopoulos/convert-nifti-to-glb $HOME/github.com/pbizopoulos/convert-nifti-to-glb
+cd $HOME/github.com/pbizopoulos/convert-nifti-to-glb/
 
 # Development
 cd docs/ && make clean check all && cd ..
