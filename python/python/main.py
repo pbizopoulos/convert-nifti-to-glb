@@ -98,10 +98,11 @@ class Tests(unittest.TestCase):
         with Path("tmp/masks.nii").open("rb") as file:
             masks_bytes = file.read()
         output_masks = convert_nifti_to_glb(masks_bytes, "tmp/masks.glb", 1, 2)
-        assert (
+        if (
             sha256(output_masks).hexdigest()
-            == "8eec1367dd602133cee555a504eb5e54e7b2f7c0e550110e3657fcc7a13d65cb"
-        )
+            != "8eec1367dd602133cee555a504eb5e54e7b2f7c0e550110e3657fcc7a13d65cb"
+        ):
+            raise AssertionError
         with Path("tmp/masks-multiclass.nii").open("rb") as file:
             masks_multiclass_bytes = file.read()
         output_masks_multiclass = convert_nifti_to_glb(
@@ -110,27 +111,30 @@ class Tests(unittest.TestCase):
             1,
             2,
         )
-        assert sha256(output_masks_multiclass).hexdigest() in [
+        if sha256(output_masks_multiclass).hexdigest() not in [
             "e32b75c132dba956d8c7bfff787d1b7014d203aeafa922c1c1ed558decd9e8ad",
             "5eb4b65bf995f07078a7452c6407ad1746cbe0c19306802fef5fdae2b7ef7580",
-        ]
+        ]:
+            raise AssertionError
 
     def test_convert_nifti_to_glb_file_input(self: Tests) -> None:
         output_masks = convert_nifti_to_glb("tmp/masks.nii", "tmp/masks.glb", 1, 2)
-        assert (
+        if (
             sha256(output_masks).hexdigest()
-            == "8eec1367dd602133cee555a504eb5e54e7b2f7c0e550110e3657fcc7a13d65cb"
-        )
+            != "8eec1367dd602133cee555a504eb5e54e7b2f7c0e550110e3657fcc7a13d65cb"
+        ):
+            raise AssertionError
         output_masks_multiclass = convert_nifti_to_glb(
             "tmp/masks-multiclass.nii",
             "tmp/masks-multiclass.glb",
             1,
             2,
         )
-        assert sha256(output_masks_multiclass).hexdigest() in [
+        if sha256(output_masks_multiclass).hexdigest() not in [
             "e32b75c132dba956d8c7bfff787d1b7014d203aeafa922c1c1ed558decd9e8ad",
             "5eb4b65bf995f07078a7452c6407ad1746cbe0c19306802fef5fdae2b7ef7580",
-        ]
+        ]:
+            raise AssertionError
 
 
 def main_cli() -> None:
