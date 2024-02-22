@@ -1,0 +1,26 @@
+# Convert NIfTI to GLB
+https://pbizopoulos.github.io/convert-nifti-to-glb
+
+# Requirements
+POSIX Shell & Utilities
+Git
+Docker
+
+# Download
+git clone https://github.com/pbizopoulos/convert-nifti-to-glb $HOME/github.com/pbizopoulos/convert-nifti-to-glb
+cd $HOME/github.com/pbizopoulos/convert-nifti-to-glb/
+
+# Development
+cd docs/ && make clean check all && cd ..
+cd python/python/ && make clean check all && cd ../..
+cd python/ && make clean check all && cd ..
+
+# Staging
+cd docs/ && make STAGING=1
+
+# Installation
+pip install https://github.com/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python/python
+
+# Usage
+convert_nifti_to_glb input.nii output.glb 1 2
+
