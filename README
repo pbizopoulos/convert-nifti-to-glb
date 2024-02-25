@@ -19,7 +19,7 @@ cd python/ && make clean check all && cd ..
 cd docs/ && make STAGING=1
 
 # Installation
-pip install https://github.com/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python/python
+pip install https://api.github.com/repos/pbizopoulos/convert-nifti-to-glb/tarball/main#subdirectory=python/python
 
 # Usage
 convert_nifti_to_glb input.nii output.glb 1 2
