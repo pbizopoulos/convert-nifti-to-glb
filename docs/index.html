@@ -6,9 +6,8 @@
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <title>Convert NIfTI to GLB</title>
         <link href="data:," rel="icon">
-        <link href="https://pyscript.net/latest/pyscript.css" rel="stylesheet">
-        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-        <py-config src="./prm/pyscript.toml"></py-config>
+	<link rel="stylesheet" href="https://pyscript.net/releases/2024.2.1/core.css">
+	<script type="module" src="https://pyscript.net/releases/2024.2.1/core.js"></script>
     </head>
 
     <body>
@@ -29,7 +28,7 @@
         </div>
         <button id="convert-button" type="submit">Convert</button>
         <div id="processing-div"></div>
-        <py-script src="./prm/main.py"></py-script>
+        <script type="py" src="./prm/main.py" config="./prm/pyscript.toml"></script>
     </body>
 
 </html>
