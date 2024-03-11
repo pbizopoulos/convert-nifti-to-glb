@@ -7,10 +7,17 @@
         <title>Convert NIfTI to GLB</title>
         <link href="data:," rel="icon">
         <link rel="stylesheet" href="https://pyscript.net/releases/2024.2.1/core.css">
+        <script type="module">
+            const loading = document.getElementById('loading');
+            addEventListener('py:ready', () => loading.close());
+            loading.showModal();
+
+        </script>
         <script type="module" src="https://pyscript.net/releases/2024.2.1/core.js"></script>
     </head>
 
     <body>
+        <dialog id="loading">Loading...</dialog>
         <nav>
             <a href="https://cordis.europa.eu/project/id/952179"><img alt="INCISIVE Cordis webpage" src="https://incisive-project.eu/wp-content/uploads/2021/01/incisive-header-logo.svg" height="20"></a> | <a href="https://github.com/pbizopoulos/convert-nifti-to-glb">Source code</a> | <a href="https://pbizopoulos.github.io/incisive">Home page</a> / <b>Convert NIfTI to GLB</b>
         </nav>
